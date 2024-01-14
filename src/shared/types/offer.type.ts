@@ -20,5 +20,6 @@ export type TOffer = {
   price: number;
   amenities: EAmenity[];
   user: TUser;
+  commentCount: number,
   location: TLocation;
 };
