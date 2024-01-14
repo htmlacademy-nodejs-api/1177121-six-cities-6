@@ -2,7 +2,7 @@ import {
   EAmenity,
   ECity,
   EHouseType,
-  EUserRole,
+  EUserType,
   TOffer,
 } from '../types/index.js';
 
@@ -49,7 +49,7 @@ export const createOffer = ([
     name,
     email,
     avatar,
-    userType: EUserRole[userType as keyof typeof EUserRole],
+    userType: EUserType[userType as keyof typeof EUserType],
   },
   commentCount: Number.parseInt(commentCount, DECIMAL_SYSTEM),
   location: {

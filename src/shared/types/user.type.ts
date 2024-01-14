@@ -1,8 +1,8 @@
-import { EUserRole } from './user-role.enum.js';
+import { EUserType } from './user-type.enum.js';
 
 export type TUser = {
   name: string;
   email: string;
   avatar: string;
-  userType: EUserRole;
+  userType: EUserType;
 }
