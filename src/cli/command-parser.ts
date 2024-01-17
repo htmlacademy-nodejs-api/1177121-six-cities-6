@@ -1,3 +1,5 @@
+import { Command } from './commands/constants.command.js';
+
 type ParsedCommand = Record<string, string[]>;
 
 export class CommandParser {
@@ -6,7 +8,7 @@ export class CommandParser {
     let currentCommand = '';
 
     for (const argument of cliArguments) {
-      if (argument.startsWith('--')) {
+      if (argument.startsWith(Command.DoubleDash)) {
         parsedCommand[argument] = [];
         currentCommand = argument;
       } else if (currentCommand && argument) {

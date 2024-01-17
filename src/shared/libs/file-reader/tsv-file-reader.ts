@@ -2,6 +2,7 @@ import { IFileReader } from './file-reader.interface.js';
 import { readFileSync } from 'node:fs';
 import { TOffer } from '../../types/index.js';
 import { createOffer } from '../../helpers/index.js';
+import { ErrorMessage, UNICODE } from '../../constants/index.js';
 
 export class TSVFileReader implements IFileReader {
   private rawData = '';
@@ -9,12 +10,12 @@ export class TSVFileReader implements IFileReader {
   constructor(private readonly filename: string) {}
 
   public read(): void {
-    this.rawData = readFileSync(this.filename, { encoding: 'utf-8' });
+    this.rawData = readFileSync(this.filename, { encoding: UNICODE });
   }
 
   public toArray(): TOffer[] {
     if (!this.rawData) {
-      throw new Error('File was not read');
+      throw new Error(ErrorMessage.ReadFile);
     }
 
     return this.rawData

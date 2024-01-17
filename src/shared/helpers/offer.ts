@@ -5,8 +5,7 @@ import {
   EUserType,
   TOffer,
 } from '../types/index.js';
-
-const DECIMAL_SYSTEM = 10;
+import { DECIMAL_SYSTEM } from '../constants/index.js';
 
 export const createOffer = ([
   title,
