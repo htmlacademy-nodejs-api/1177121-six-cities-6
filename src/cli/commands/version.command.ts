@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ErrorMessage, UNICODE } from '../../shared/constants/index.js';
 import { ICommand } from './command.interface.js';
-import { Command } from './constants.command.js';
+import { Command } from './command.constants.js';
 
 type PackageJSONConfig = {
   version: string;

@@ -1,4 +1,4 @@
-import { Command } from './commands/constants.command.js';
+import { Command } from './commands/command.constants.js';
 
 type ParsedCommand = Record<string, string[]>;
 
