@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import chalk from 'chalk';
 import { glob } from 'glob';
 import { resolve } from 'node:path';
 import {
@@ -24,7 +25,7 @@ async function bootstrap() {
       try {
         commands.push(new CommandClass());
       } catch (error) {
-        console.error(`Command not found in ${commandFile}`);
+        console.error(`Command not found in ${chalk.redBright(commandFile)}`);
       }
     }
   }

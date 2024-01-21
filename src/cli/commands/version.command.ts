@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ErrorMessage, UNICODE } from '../../shared/constants/index.js';
@@ -40,7 +41,7 @@ export class VersionCommand implements ICommand {
       const version = this.readVersion();
       console.info(version);
     } catch (error: unknown) {
-      console.error(`Failed to read version from ${this.filePath}`);
+      console.error(`Failed to read version from ${chalk.redBright(this.filePath)}`);
 
       if (error instanceof Error) {
         console.error(error.message);
