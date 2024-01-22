@@ -1,0 +1,82 @@
+{
+  "api": {
+    "titles": [
+      "Luxury Living Redefined: Explore Our Spacious Apartments",
+      "Chic and Affordable: Find Your Perfect Apartment Today",
+      "Escape and Unwind: Book Your Stay at Our Deluxe Hotel",
+      "Hospitality at Its Finest: Experience Luxury in Our Hotel",
+      "Your Forever Home: Beautiful Houses for Sale in Prime Locations",
+      "Dream Home Awaits: Find Your Perfect House with Us",
+      "Cozy Retreats: Rent a Room That Fits Your Lifestyle",
+      "Your Personal Space Awaits: Explore Our Available Rooms"
+    ],
+    "descriptions": [
+     "Discover the epitome of contemporary living with our stylish apartments. Immerse yourself in the urban vibe with modern amenities, spacious interiors, and city views that redefine luxury. Your dream apartment is just a click away.",
+     "Indulge in a world of comfort and luxury at our deluxe hotel. Whether you're on a business trip or a leisurely escape, our hospitality exceeds expectations. Immerse yourself in a relaxing environment where every detail is designed to make your stay unforgettable",
+     "Embark on a journey to find your forever home with our collection of beautiful houses. Each property is strategically located, offering spacious living, modern amenities, and the perfect blend of comfort and elegance. Your dream home is within reach.",
+     "Experience the comfort of cozy retreats with our available rooms for rent. Whether you're a student, professional, or someone seeking a private space, our rooms offer affordability without compromising on style. Your perfect retreat is ready to welcome you.",
+     "Elevate your lifestyle with our redefined concept of luxury living in our spacious apartments. Immerse yourself in a world where every detail is crafted for your comfort and convenience. From high-end finishes to thoughtfully designed layouts, these apartments redefine what it means to live in style.",
+     "Immerse yourself in the epitome of hospitality at our finest hotel. Experience luxury like never before, where every moment is tailored to exceed your expectations. From elegant accommodations to impeccable service, let us create a memorable and indulgent stay for you.",
+     "Discover the joy of spacious family living with our carefully curated selection of houses. Each property is a haven for creating lasting memories, offering ample space, modern conveniences, and a sense of community. Your ideal family home awaits your exploration.",
+     "Embrace affordable comfort with our private rooms available for rent. Whether you're a solo adventurer or looking for a budget-friendly living space, our rooms provide the perfect blend of affordability and comfort. Make yourself at home in a space that suits your lifestyle."
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "previews": [
+      "preview-1.jpg",
+      "preview-2.jpg",
+      "preview-3.jpg",
+      "preview-4.jpg",
+      "preview-5.jpg",
+      "preview-6.jpg",
+      "preview-7.jpg",
+      "preview-8.jpg"
+    ],
+    "photos": [
+      "photo-1.jpg",
+      "photo-2.jpg",
+      "photo-3.jpg",
+      "photo-4.jpg",
+      "photo-5.jpg",
+      "photo-6.jpg",
+      "photo-7.jpg",
+      "photo-8.jpg"
+    ],
+    "users": [
+      "Amelia Sterling",
+      "Victor Royale",
+      "Eleanor Estates",
+      "Samuel Retreats",
+      "Isabella Luxton",
+      "Maximillian Grandeur",
+      "Gabriella Homestead",
+      "Oliver TranquilHaven"
+    ],
+    "emails": [
+      "alice.wonderland@test.com",
+      "captain.adventure@test.com",
+      "mystic.dreamer@test.com",
+      "galaxy.explorer@test.com",
+      "professor.genius@test.net",
+      "enchanted.forest@test.com",
+      "tech.wizardry@test.org",
+      "secret.agent@test.com"
+    ],
+    "avatars": [
+      "avatar-1.jpg",
+      "avatar-2.jpg",
+      "avatar-3.jpg",
+      "avatar-4.jpg",
+      "avatar-5.jpg",
+      "avatar-6.jpg",
+      "avatar-7.jpg",
+      "avatar-8.jpg"
+    ]
+  }
+}
