@@ -6,7 +6,7 @@ export type TMockServerData = {
   cities: ECity[];
   previews: string[];
   photos: string[];
-  users: string[];
+  names: string[];
   emails: string[];
   avatars: string[];
 };
