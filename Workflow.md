@@ -10,22 +10,6 @@ npm install
 
 Команда запустит процесс установки зависимостей проекта из **npm**.
 
-#### Команды
-
-Команда запуска тестового сервера:
-
-```bash
-npm run mock:server
-```
-
-Команда генерации 100 тестовых данных в файл **.tsv**.
-
-```bash
-npm run cli -- --generate 100 ./mocks/mock-data.tsv http://localhost:3123/api
-
-npm run ts ./src/main.cli.ts -- --generate 100 ./mocks/mock-data.tsv http://localhost:3123/api
-```
-
 ### Сценарии
 
 В `package.json` предопределено несколько сценариев.
@@ -35,7 +19,7 @@ npm run ts ./src/main.cli.ts -- --generate 100 ./mocks/mock-data.tsv http://loca
 ```bash
 npm run cli -- --<commandName> [--arguments]
 ```
-Вызовет cli команду c с переданными аргументами Подробнее о доступные командах: npm run cli -- --help
+Вызовет cli команду c переданными аргументами Подробнее о доступных командах: npm run cli -- --help
 
 #### Запустить мок-сервер
 
@@ -43,6 +27,20 @@ npm run cli -- --<commandName> [--arguments]
 npm run mock:server
 ```
 Запустит сервер с набором моковых данных на порту 3123
+
+#### Генерация моковых данных
+
+Команда генерации 100 тестовых данных в файл .tsv.
+
+> Вызывается после запуска мок-сервера
+
+```bash
+npm run cli -- --generate 100 ./mocks/mock-data.tsv http://localhost:3123/api
+```
+или
+```bash
+npm run mock:generate
+```
 
 #### Скомпилировать проект
 
