@@ -21,9 +21,9 @@ npm run mock:server
 Команда генерации 100 тестовых данных в файл **.tsv**.
 
 ```bash
-npm run cli -- --generate 100 ./mock/mock-data.tsv http://localhost:3123/api
+npm run cli -- --generate 100 ./mocks/mock-data.tsv http://localhost:3123/api
 
-npm run ts ./src/main.cli.ts -- --generate 100 ./mock/mock-data.tsv http://localhost:3123/api
+npm run ts ./src/main.cli.ts -- --generate 100 ./mocks/mock-data.tsv http://localhost:3123/api
 ```
 
 ### Сценарии

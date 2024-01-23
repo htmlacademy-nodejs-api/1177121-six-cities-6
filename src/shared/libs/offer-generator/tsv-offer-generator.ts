@@ -34,7 +34,7 @@ export class TSVOfferGenerator implements IOfferGenerator {
       .toISOString();
     const city = getRandomItem(Object.keys(Cities)) as keyof typeof Cities;
     const preview = getRandomItem<string>(this.mockData.previews);
-    const photos = getRandomItems<string>(this.mockData.photos);
+    const photos = getRandomItems<string>(this.mockData.photos).join(';');
     const isPremium = getRandomItem([BooleanString.True, BooleanString.False]);
     const isFavorite = getRandomItem([BooleanString.True, BooleanString.False]);
     const rating = generateRandomValue(Rating.Min, Rating.Max);
@@ -42,7 +42,7 @@ export class TSVOfferGenerator implements IOfferGenerator {
     const roomsCount = generateRandomValue(RoomCount.Min, RoomCount.Max);
     const guestsCount = generateRandomValue(GuestCount.Min, GuestCount.Max);
     const price = generateRandomValue(Price.Min, Price.Max);
-    const amenities = getRandomItems(Object.values(EAmenity));
+    const amenities = getRandomItems(Object.values(EAmenity)).join(';');
     const name = getRandomItem<string>(this.mockData.names);
     const email = getRandomItem<string>(this.mockData.emails);
     const avatar = getRandomItem<string>(this.mockData.avatars);
