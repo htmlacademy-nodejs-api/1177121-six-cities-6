@@ -15,7 +15,7 @@ export class ImportCommand implements ICommand {
   }
 
   private onCompleteImport(count: number) {
-    console.info(`${count} rows imported.`);
+    console.info(`${chalk.greenBright('Success')}: ${chalk.yellow(count)} rows imported.`);
   }
 
   public async execute(...parameters: string[]): Promise<void> {
@@ -28,7 +28,7 @@ export class ImportCommand implements ICommand {
     try {
       await fileReader.read();
     } catch (error) {
-      console.error(`${chalk.redBright('Error')}: Can't import data from file: ${chalk.redBright(filename)}`);
+      console.error(`${chalk.redBright('Error')}: Can't import data from file: ${chalk.bold.whiteBright(filename)}`);
       console.error(getErrorMessage(error));
     }
   }

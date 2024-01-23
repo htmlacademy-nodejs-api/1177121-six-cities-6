@@ -25,7 +25,7 @@ async function bootstrap() {
       try {
         commands.push(new CommandClass());
       } catch (error) {
-        console.error(`Command not found in ${chalk.redBright(commandFile)}`);
+        console.error(`${chalk.redBright('Error')}: Command not found in ${chalk.bold.whiteBright(commandFile)}`);
       }
     }
   }

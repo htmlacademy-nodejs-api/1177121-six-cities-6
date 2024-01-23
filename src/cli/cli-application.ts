@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import { ICommand } from './commands/command.interface.js';
 import { CommandParser } from './command-parser.js';
 import { Command } from './commands/command.constants.js';
@@ -12,7 +13,7 @@ export class CLIApplication {
   public registerCommands(commandList: ICommand[]): void {
     commandList.forEach((command) => {
       if (Object.hasOwn(this.commands, command.getName())) {
-        throw new Error(`Command ${command.getName()} is already registered`);
+        throw new Error(`${chalk.redBright('Error')}: Command ${chalk.yellow(command.getName())} is already registered`);
       }
       this.commands[command.getName()] = command;
     });
@@ -25,7 +26,7 @@ export class CLIApplication {
   public getDefaultCommand(): ICommand | never {
     if (!this.commands[this.defaultCommand]) {
       throw new Error(
-        `The default command (${this.defaultCommand}) is not registered.`
+        `${chalk.redBright('Error')}: The default command (${chalk.yellow(this.defaultCommand)}) is not registered.`
       );
     }
     return this.commands[this.defaultCommand];

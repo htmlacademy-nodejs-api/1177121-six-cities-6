@@ -16,7 +16,7 @@ export class GenerateCommand implements ICommand {
     try {
       this.initialData = await got.get(url).json();
     } catch {
-      throw new Error(`${chalk.redBright('Error')}: Can't load data from ${chalk.redBright(url)}`);
+      throw new Error(`${chalk.redBright('Error')}: Can't load data from ${chalk.bold.whiteBright(url)}`);
     }
   }
 
@@ -41,7 +41,7 @@ export class GenerateCommand implements ICommand {
       await this.load(url);
       await this.write(filepath, offerCount);
 
-      console.info(`${chalk.greenBright('Success')}: File ${chalk.green(filepath)} was created!`);
+      console.info(`${chalk.greenBright('Success')}: File ${chalk.bold.whiteBright(filepath)} was created!`);
     } catch (error: unknown) {
       console.error(`${chalk.redBright('Error')}: Can't generate data`);
       console.error(getErrorMessage(error));
