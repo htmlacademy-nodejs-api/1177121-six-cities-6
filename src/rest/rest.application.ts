@@ -1,9 +1,9 @@
-import { Logger } from '../shared/libs/logger/index.js';
+import { ILogger } from '../shared/libs/logger/index.js';
 import { IConfig, RestSchema } from '../shared/libs/config/index.js';
 
 export class RestApplication {
   constructor(
-    private readonly logger: Logger,
+    private readonly logger: ILogger,
     private readonly config: IConfig<RestSchema>,
   ) {}
 

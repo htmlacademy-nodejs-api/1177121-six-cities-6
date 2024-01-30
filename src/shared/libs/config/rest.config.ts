@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { config } from 'dotenv';
-import { Logger } from '../logger/index.js';
+import { ILogger } from '../logger/index.js';
 import { IConfig } from './config.interface.js';
 import { configRestSchema, RestSchema } from './rest.schema.js';
 
@@ -8,7 +8,7 @@ export class RestConfig implements IConfig<RestSchema> {
   private readonly config: RestSchema;
 
   constructor(
-    private readonly logger: Logger
+    private readonly logger: ILogger
   ) {
     const parsedOutput = config();
 
