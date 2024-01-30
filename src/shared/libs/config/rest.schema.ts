@@ -3,13 +3,13 @@ import validator from 'convict-format-with-validator';
 
 convict.addFormats(validator);
 
-export type RestSchema = {
+export type TRestSchema = {
   PORT: number;
   SALT: string;
   DB_HOST: string;
 }
 
-export const configRestSchema = convict<RestSchema>({
+export const configRestSchema = convict<TRestSchema>({
   PORT: {
     doc: 'Port for incoming connections',
     format: 'port',

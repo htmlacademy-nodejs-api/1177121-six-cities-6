@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { TypeMessage } from '../constants/index.js';
 
 export function generateRandomValue(
   min: number,
@@ -18,5 +19,5 @@ export function getRandomItem<T>(items: T[]): T {
   return items[generateRandomValue(0, items.length - 1)];
 }
 export function getErrorMessage(error: unknown): string {
-  return error instanceof Error ? `${chalk.redBright('Error')}: ${error.message}` : '';
+  return error instanceof Error ? `${chalk.redBright(TypeMessage.Error)}: ${error.message}` : '';
 }

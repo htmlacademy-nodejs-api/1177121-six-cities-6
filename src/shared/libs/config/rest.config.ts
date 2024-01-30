@@ -1,14 +1,15 @@
 import chalk from 'chalk';
 import { config } from 'dotenv';
 import { inject, injectable } from 'inversify';
-import { ILogger } from '../logger/index.js';
 import { Component } from '../../types/index.js';
+import { ErrorMessage, TypeMessage } from '../../constants/index.js';
+import { ILogger } from '../logger/index.js';
 import { IConfig } from './config.interface.js';
-import { configRestSchema, RestSchema } from './rest.schema.js';
+import { configRestSchema, TRestSchema } from './rest.schema.js';
 
 @injectable()
-export class RestConfig implements IConfig<RestSchema> {
-  private readonly config: RestSchema;
+export class RestConfig implements IConfig<TRestSchema> {
+  private readonly config: TRestSchema;
 
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger
@@ -16,7 +17,7 @@ export class RestConfig implements IConfig<RestSchema> {
     const parsedOutput = config();
 
     if (parsedOutput.error) {
-      throw new Error(`${chalk.redBright('Error')}: Can't read .env file. Perhaps the file does not exists.`);
+      throw new Error(`${chalk.redBright(TypeMessage.Error)}: ${ErrorMessage.ReadEnv}`);
     }
 
     configRestSchema.load({});
@@ -26,7 +27,7 @@ export class RestConfig implements IConfig<RestSchema> {
     this.logger.info('.env file found and successfully parsed!');
   }
 
-  public get<T extends keyof RestSchema>(key: T): RestSchema[T] {
+  public get<T extends keyof TRestSchema>(key: T): TRestSchema[T] {
     return this.config[key];
   }
 }

@@ -1,7 +1,7 @@
 
 import got from 'got';
 import chalk from 'chalk';
-import { DECIMAL_SYSTEM } from '../../shared/constants/index.js';
+import { DECIMAL_SYSTEM, ErrorMessage, TypeMessage } from '../../shared/constants/index.js';
 import { TMockServerData } from '../../shared/types/mock-server-data.type.js';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';
@@ -16,7 +16,7 @@ export class GenerateCommand implements ICommand {
     try {
       this.initialData = await got.get(url).json();
     } catch {
-      throw new Error(`${chalk.redBright('Error')}: Can't load data from ${chalk.bold.whiteBright(url)}`);
+      throw new Error(`${chalk.redBright(TypeMessage.Error)}: Can't load data from ${chalk.bold.whiteBright(url)}`);
     }
   }
 
@@ -41,9 +41,9 @@ export class GenerateCommand implements ICommand {
       await this.load(url);
       await this.write(filepath, offerCount);
 
-      console.info(`${chalk.greenBright('Success')}: File ${chalk.bold.whiteBright(filepath)} was created!`);
+      console.info(`${chalk.greenBright(TypeMessage.Success)}: File ${chalk.bold.whiteBright(filepath)} was created!`);
     } catch (error: unknown) {
-      console.error(`${chalk.redBright('Error')}: Can't generate data`);
+      console.error(`${chalk.redBright(TypeMessage.Error)}: ${ErrorMessage.GenerateData}`);
       console.error(getErrorMessage(error));
     }
   }
