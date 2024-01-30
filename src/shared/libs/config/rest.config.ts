@@ -1,9 +1,9 @@
 import chalk from 'chalk';
 import { DotenvParseOutput, config } from 'dotenv';
 import { Logger } from '../logger/index.js';
-import { Config } from './config.interface.js';
+import { IConfig } from './config.interface.js';
 
-export class RestConfig implements Config {
+export class RestConfig implements IConfig {
   private readonly config: NodeJS.ProcessEnv;
 
   constructor(
