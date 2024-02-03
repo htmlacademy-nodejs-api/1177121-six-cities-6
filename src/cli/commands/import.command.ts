@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { TSVFileReader } from '../../shared/libs/file-reader/index.js';
 import { createOffer, getErrorMessage } from '../../shared/helpers/index.js';
+import { TypeMessage } from '../../shared/constants/index.js';
 import { ICommand } from './command.interface.js';
 import { Command } from './command.constants.js';
 
@@ -15,7 +16,7 @@ export class ImportCommand implements ICommand {
   }
 
   private onCompleteImport(count: number) {
-    console.info(`${chalk.greenBright('Success')}: ${chalk.yellow(count)} rows imported.`);
+    console.info(`${chalk.greenBright(TypeMessage.Success)}: ${chalk.yellow(count)} rows imported.`);
   }
 
   public async execute(...parameters: string[]): Promise<void> {
@@ -28,7 +29,7 @@ export class ImportCommand implements ICommand {
     try {
       await fileReader.read();
     } catch (error) {
-      console.error(`${chalk.redBright('Error')}: Can't import data from file: ${chalk.bold.whiteBright(filename)}`);
+      console.error(`${chalk.redBright(TypeMessage.Error)}: Can't import data from file: ${chalk.bold.whiteBright(filename)}`);
       console.error(getErrorMessage(error));
     }
   }

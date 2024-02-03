@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { ErrorMessage, UNICODE } from '../../shared/constants/index.js';
+import { ErrorMessage, TypeMessage, UNICODE } from '../../shared/constants/index.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';
 import { ICommand } from './command.interface.js';
 import { Command } from './command.constants.js';
@@ -42,7 +42,7 @@ export class VersionCommand implements ICommand {
       const version = this.readVersion();
       console.info(version);
     } catch (error: unknown) {
-      console.error(`${chalk.redBright('Error')}: Failed to read version from ${chalk.bold.whiteBright(this.filePath)}`);
+      console.error(`${chalk.redBright(TypeMessage.Error)}: Failed to read version from ${chalk.bold.whiteBright(this.filePath)}`);
 
       console.error(getErrorMessage(error));
     }
