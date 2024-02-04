@@ -1,3 +1,13 @@
+export enum ETitleLength {
+  Min = 10,
+  Max = 100,
+}
+
+export enum EDescriptionLength {
+  Min = 20,
+  Max = 1024,
+}
+
 export const WeekDay = {
   First: 1,
   Last: 7,

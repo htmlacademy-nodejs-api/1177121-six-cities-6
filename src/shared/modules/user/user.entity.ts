@@ -38,6 +38,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
 
   @prop({
     required: false,
+    trim: true,
     match: [
       /\.(jpg|png)(\?.*)?$/i,
       'The avatar image must match the format .jpg or .png',
