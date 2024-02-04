@@ -48,6 +48,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
   public avatar!: string;
 
   @prop({
+    type: () => String,
     required: true,
     enum: EUserType,
     default: EUserType.Standard,
