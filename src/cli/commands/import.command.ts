@@ -29,7 +29,7 @@ export class ImportCommand implements ICommand {
 
   private async onImportedLine(line: string, resolve: () => void) {
     const offer = createOffer(line);
-    console.info(offer);
+
     await this.saveOffer(offer);
     resolve();
   }

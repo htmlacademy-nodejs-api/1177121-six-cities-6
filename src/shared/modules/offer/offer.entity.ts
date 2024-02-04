@@ -4,8 +4,9 @@ import {
   modelOptions,
   prop,
   Ref,
+  Severity,
 } from '@typegoose/typegoose';
-import { EDescriptionLength, ETitleLength, GuestCount, Price, Rating, RoomCount } from '../../constants/index.js';
+import { DescriptionLength, TitleLength, GuestCount, Price, Rating, RoomCount } from '../../constants/index.js';
 import { EAmenity, ECity, EHouseType, TLocation } from '../../types/index.js';
 import { UserEntity } from '../user/index.js';
 
@@ -16,21 +17,24 @@ export interface OfferEntity extends defaultClasses.Base {}
   schemaOptions: {
     collection: 'offers',
   },
+  options: {
+    allowMixed: Severity.ALLOW
+  }
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     require: true,
-    minlength: ETitleLength.Min,
-    maxlength: ETitleLength.Max,
+    minlength: TitleLength.Min,
+    maxlength: TitleLength.Max,
   })
   public title!: string;
 
   @prop({
     required: true,
-    minlength: EDescriptionLength.Min,
-    maxlength: EDescriptionLength.Max,
+    minlength: DescriptionLength.Min,
+    maxlength: DescriptionLength.Max,
   })
   public description!: string;
 

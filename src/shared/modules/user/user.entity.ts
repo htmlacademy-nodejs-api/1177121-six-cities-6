@@ -6,6 +6,7 @@ import {
 } from '@typegoose/typegoose';
 import { EUserType, TUser } from '../../types/index.js';
 import { createSHA256 } from '../../helpers/index.js';
+import { DEFAULT_AVATAR, NameLength } from '../../constants/index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}
@@ -21,7 +22,8 @@ export interface UserEntity extends defaultClasses.Base {}
 export class UserEntity extends defaultClasses.TimeStamps implements TUser {
   @prop({
     required: true,
-    minlength: [2, 'Min length for name is 2'],
+    minlength: [NameLength.Min, `Min length for name is ${NameLength.Min}`],
+    maxlength: [NameLength.Max, `Max length for name is ${NameLength.Max}`],
     default: '',
   })
   public name!: string;
@@ -43,7 +45,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
       /\.(jpg|png)(\?.*)?$/i,
       'The avatar image must match the format .jpg or .png',
     ],
-    default: '',
+    default: DEFAULT_AVATAR,
   })
   public avatar!: string;
 
