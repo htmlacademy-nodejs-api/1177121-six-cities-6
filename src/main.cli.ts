@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import 'reflect-metadata';
 import chalk from 'chalk';
 import { glob } from 'glob';
 import { resolve } from 'node:path';

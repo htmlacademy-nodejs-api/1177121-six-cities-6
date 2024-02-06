@@ -1,3 +1,13 @@
+export const TitleLength = {
+  Min: 10,
+  Max: 100,
+} as const;
+
+export const DescriptionLength = {
+  Min: 20,
+  Max: 1024,
+} as const;
+
 export const WeekDay = {
   First: 1,
   Last: 7,
@@ -15,17 +25,17 @@ export const Rating = {
 
 export const RoomCount = {
   Min: 1,
-  Max: 4,
+  Max: 8,
 } as const;
 
 export const GuestCount = {
   Min: 1,
-  Max: 4,
+  Max: 10,
 } as const;
 
 export const Price = {
-  Min: 500,
-  Max: 2000,
+  Min: 100,
+  Max: 100000,
 } as const;
 
 export const CommentCount = {
