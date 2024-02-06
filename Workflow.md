@@ -10,6 +10,20 @@ npm install
 
 Команда запустит процесс установки зависимостей проекта из **npm**.
 
+Переменные окружения:
+
+```bash
+PORT=number - порт для входящих подключений к серверу
+SALT=string - соль для хеширования пароля
+DB_HOST=string - адрес для подключения к БД
+DB_USER=string - имя пользователя для подключения к БД
+DB_PASSWORD=string - пароль для подключения к БД
+DB_PORT=number - порт для подключения к БД
+DB_NAME=string - имя БД
+```
+
+Пример в файле .env.example
+
 ### Сценарии
 
 В `package.json` предопределено несколько сценариев.
@@ -40,6 +54,38 @@ npm run cli -- --generate 100 ./mocks/mock-data.tsv http://localhost:3123/api
 или
 ```bash
 npm run mock:generate
+```
+
+#### Запустить базу данных MongoDB в Docker
+
+Команда поднимает контейнер с базой данных.
+
+```bash
+docker compose up -d
+```
+
+Во многих случаях потребуется выполнить одну команду — `docker-compose up` в директории с `docker-compose.dev.yml`.
+Но поскольку мы передаём значения для переменных окружения из .env файла потребуется указать путь к этому файлу: `.env`
+
+```bash
+docker compose \
+--file ./docker-compose.dev.yml \
+--env-file ./.env \
+--project-name "six_cities" \
+up \
+-d
+```
+
+#### Импортировать данные в базу данных MongoDB
+
+Команда импорта тестовых данных из файла `.tsv` в БД.
+
+> Вызывается после генерации моковых данных
+
+```bash
+npm run cli -- --import ./mocks/mock-data.tsv db_user db_password localhost db_name _salt
+
+npm run ts ./src/main.cli.ts -- --import ./mocks/mock-data.tsv db_user db_password localhost db_name salt
 ```
 
 #### Скомпилировать проект
