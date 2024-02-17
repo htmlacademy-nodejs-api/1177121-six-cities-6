@@ -47,7 +47,7 @@ export const createOffer = (offerData: string): TOffer => {
     guestsCount: Number.parseInt(guestsCount, DECIMAL_SYSTEM),
     price: Number.parseInt(price, DECIMAL_SYSTEM),
     amenities: amenities.split(';').map((amenity) => amenity as EAmenity),
-    user: {
+    author: {
       name,
       email,
       avatar,

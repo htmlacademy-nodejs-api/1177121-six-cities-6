@@ -203,7 +203,7 @@ paths:
         "404":
           description: Предложение с указанным идентификатором offerId не найдено.
 
-    put:
+    patch:
       tags:
         - offers
       summary: Обновление предложения
@@ -586,7 +586,7 @@ components:
           type: integer
           example: 7
 
-        user:
+        author:
           $ref: '#/components/schemas/user'
 
         location:
