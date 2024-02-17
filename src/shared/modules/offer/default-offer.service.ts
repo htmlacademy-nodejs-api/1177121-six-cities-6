@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { Component, SortType } from '../../types/index.js';
-import { OfferCount } from '../../constants/index.js';
+import { offerConstants } from '../../constants/index.js';
 import { ILogger } from '../../libs/logger/index.js';
 import { IOfferService } from './offer-service.interface.js';
 import { OfferEntity } from './offer.entity.js';
@@ -66,7 +66,7 @@ export class DefaultOfferService implements IOfferService {
   }
 
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
-    const limit = count ?? OfferCount.Default;
+    const limit = count ?? offerConstants.OfferCount.Default;
 
     return this.offerModel
       .find()
@@ -102,7 +102,7 @@ export class DefaultOfferService implements IOfferService {
           },
         },
         ...this.commentsLookup,
-        { $limit: OfferCount.Premium },
+        { $limit: offerConstants.OfferCount.Premium },
         { $sort: { publicationDate: SortType.Down } },
       ])
       .exec();

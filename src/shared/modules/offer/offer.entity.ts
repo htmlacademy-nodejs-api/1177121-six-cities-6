@@ -6,7 +6,7 @@ import {
   Ref,
   Severity,
 } from '@typegoose/typegoose';
-import { DescriptionLength, TitleLength, GuestCount, Price, Rating, RoomCount } from '../../constants/index.js';
+import { offerConstants } from '../../constants/index.js';
 import { EAmenity, ECity, EHouseType, TLocation } from '../../types/index.js';
 import { UserEntity } from '../user/index.js';
 
@@ -26,15 +26,17 @@ export interface OfferEntity extends defaultClasses.Base {}
 export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     require: true,
-    minlength: TitleLength.Min,
-    maxlength: TitleLength.Max,
+    minlength: offerConstants.TitleLength.Min,
+    maxlength: offerConstants.TitleLength.Max,
+    trim: true,
   })
   public title!: string;
 
   @prop({
     required: true,
-    minlength: DescriptionLength.Min,
-    maxlength: DescriptionLength.Max,
+    minlength: offerConstants.DescriptionLength.Min,
+    maxlength: offerConstants.DescriptionLength.Max,
+    trim: true,
   })
   public description!: string;
 
@@ -79,8 +81,8 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     require: true,
-    min: Rating.Min,
-    max: Rating.Max,
+    min: offerConstants.Rating.Min,
+    max: offerConstants.Rating.Max,
   })
   public rating!: number;
 
@@ -93,22 +95,22 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    min: RoomCount.Min,
-    max: RoomCount.Max,
+    min: offerConstants.RoomCount.Min,
+    max: offerConstants.RoomCount.Max,
   })
   public roomsCount!: number;
 
   @prop({
     required: true,
-    min: GuestCount.Min,
-    max: GuestCount.Max,
+    min: offerConstants.GuestCount.Min,
+    max: offerConstants.GuestCount.Max,
   })
   public guestsCount!: number;
 
   @prop({
     required: true,
-    min: Price.Min,
-    max: Price.Max,
+    min: offerConstants.Price.Min,
+    max: offerConstants.Price.Max,
   })
   public price!: number;
 
