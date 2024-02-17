@@ -1,3 +1,8 @@
+export const OfferCount = {
+  Default: 60,
+  Premium: 3,
+} as const;
+
 export const TitleLength = {
   Min: 10,
   Max: 100,

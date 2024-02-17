@@ -40,13 +40,13 @@ export class ImportCommand implements ICommand {
   }
 
   private async saveOffer(offer: TOffer) {
-    const user = await this.userService.findOrCreate({
-      ...offer.user,
+    const author = await this.userService.findOrCreate({
+      ...offer.author,
       password: DEFAULT_USER_PASSWORD
     }, this.salt);
 
     await this.offerService.create({
-      userId: user.id,
+      userId: author.id,
       title: offer.title,
       description: offer.description,
       postDate: offer.postDate,

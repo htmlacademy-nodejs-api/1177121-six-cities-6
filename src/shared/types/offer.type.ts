@@ -19,7 +19,7 @@ export type TOffer = {
   guestsCount: number;
   price: number;
   amenities: EAmenity[];
-  user: TUser;
+  author: TUser;
   commentCount: number,
   location: TLocation;
 };
