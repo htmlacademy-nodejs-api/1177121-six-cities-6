@@ -10,17 +10,7 @@ import {
   getRandomItem,
   getRandomItems,
 } from '../../helpers/index.js';
-import {
-  BooleanString,
-  Cities,
-  CommentCount,
-  DAY_UNIT,
-  GuestCount,
-  Price,
-  Rating,
-  RoomCount,
-  WeekDay,
-} from '../../constants/index.js';
+import { DAY_UNIT, offerConstants } from '../../constants/index.js';
 import { IOfferGenerator } from './offer-generator.interface.js';
 
 export class TSVOfferGenerator implements IOfferGenerator {
@@ -30,29 +20,55 @@ export class TSVOfferGenerator implements IOfferGenerator {
     const title = getRandomItem<string>(this.mockData.titles);
     const description = getRandomItem<string>(this.mockData.descriptions);
     const createdDate = dayjs()
-      .subtract(generateRandomValue(WeekDay.First, WeekDay.Last), DAY_UNIT)
+      .subtract(
+        generateRandomValue(
+          offerConstants.WeekDay.First,
+          offerConstants.WeekDay.Last
+        ),
+        DAY_UNIT
+      )
       .toISOString();
-    const city = getRandomItem(Object.keys(Cities)) as keyof typeof Cities;
+    const city = getRandomItem(
+      Object.keys(offerConstants.Cities)
+    ) as keyof typeof offerConstants.Cities;
     const preview = getRandomItem<string>(this.mockData.previews);
     const photos = getRandomItems<string>(this.mockData.photos).join(';');
-    const isPremium = getRandomItem([BooleanString.True, BooleanString.False]);
-    const isFavorite = getRandomItem([BooleanString.True, BooleanString.False]);
-    const rating = generateRandomValue(Rating.Min, Rating.Max);
+    const isPremium = getRandomItem([
+      offerConstants.BooleanString.True,
+      offerConstants.BooleanString.False,
+    ]);
+    const isFavorite = getRandomItem([
+      offerConstants.BooleanString.True,
+      offerConstants.BooleanString.False,
+    ]);
+    const rating = generateRandomValue(
+      offerConstants.Rating.Min,
+      offerConstants.Rating.Max
+    );
     const houseType = getRandomItem(Object.values(EHouseType));
-    const roomsCount = generateRandomValue(RoomCount.Min, RoomCount.Max);
-    const guestsCount = generateRandomValue(GuestCount.Min, GuestCount.Max);
-    const price = generateRandomValue(Price.Min, Price.Max);
+    const roomsCount = generateRandomValue(
+      offerConstants.RoomCount.Min,
+      offerConstants.RoomCount.Max
+    );
+    const guestsCount = generateRandomValue(
+      offerConstants.GuestCount.Min,
+      offerConstants.GuestCount.Max
+    );
+    const price = generateRandomValue(
+      offerConstants.Price.Min,
+      offerConstants.Price.Max
+    );
     const amenities = getRandomItems(Object.values(EAmenity)).join(';');
     const name = getRandomItem<string>(this.mockData.names);
     const email = getRandomItem<string>(this.mockData.emails);
     const avatar = getRandomItem<string>(this.mockData.avatars);
     const userType = getRandomItem(Object.values(EUserType));
     const commentCount = generateRandomValue(
-      CommentCount.Min,
-      CommentCount.Max
+      offerConstants.CommentCount.Min,
+      offerConstants.CommentCount.Max
     );
-    const latitude = Cities[city].latitude;
-    const longitude = Cities[city].longitude;
+    const latitude = offerConstants.Cities[city].latitude;
+    const longitude = offerConstants.Cities[city].longitude;
 
     return [
       title,
