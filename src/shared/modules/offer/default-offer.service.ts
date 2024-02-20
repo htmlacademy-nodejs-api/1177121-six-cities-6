@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
+import { Types } from 'mongoose';
 import { Component, SortType } from '../../types/index.js';
 import { offerConstants } from '../../constants/index.js';
 import { ILogger } from '../../libs/logger/index.js';
@@ -31,8 +32,8 @@ export class DefaultOfferService implements IOfferService {
     {
       $lookup: {
         from: 'comments',
-        let: { offerId: '$_id' },
-        pipeline: [{ $match: { $expr: { $eq: ['$offerId', '$$offerId'] } } }],
+        localField: '_id',
+        foreignField: 'offerId',
         as: 'comments',
       },
     },
@@ -80,11 +81,7 @@ export class DefaultOfferService implements IOfferService {
     return this.offerModel
       .aggregate([
         {
-          $match: {
-            $expr: {
-              $eq: ['$_id', { $toObjectId: offerId }],
-            },
-          },
+          $match: { _id: new Types.ObjectId(offerId) },
         },
         ...this.commentsLookup,
         ...this.usersLookup,

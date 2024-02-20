@@ -81,8 +81,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     require: true,
-    min: offerConstants.Rating.Min,
-    max: offerConstants.Rating.Max,
   })
   public rating!: number;
 
