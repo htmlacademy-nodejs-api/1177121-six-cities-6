@@ -1,9 +1,9 @@
 import { Response, Router } from 'express';
-import { Route } from '../types/route.interface.js';
+import { IRoute } from '../types/route.interface.js';
 
-export interface Controller {
+export interface IController {
   readonly router: Router;
-  addRoute(route: Route): void;
+  addRoute(route: IRoute): void;
   send<T>(res: Response, statusCode: number, data: T): void;
   ok<T>(res: Response, data: T): void;
   created<T>(res: Response, data: T): void;
