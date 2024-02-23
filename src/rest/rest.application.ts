@@ -5,6 +5,7 @@ import { IConfig, TRestSchema } from '../shared/libs/config/index.js';
 import { Component } from '../shared/types/index.js';
 import { IDatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
+import { IExceptionFilter } from '../shared/libs/rest/index.js';
 
 @injectable()
 export class RestApplication {
@@ -14,6 +15,7 @@ export class RestApplication {
     @inject(Component.Logger) private readonly logger: ILogger,
     @inject(Component.Config) private readonly config: IConfig<TRestSchema>,
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
+    @inject(Component.ExceptionFilter) private readonly appExceptionFilter: IExceptionFilter,
   ) {
     this.server = express();
   }
@@ -35,6 +37,10 @@ export class RestApplication {
     this.server.listen(port);
   }
 
+  private async _initExceptionFilters() {
+    this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
+  }
+
   public async init() {
     this.logger.info('Application initialization');
 
@@ -42,6 +48,9 @@ export class RestApplication {
     await this.initDb();
     this.logger.info('Init database completed');
 
+    this.logger.info('Init exception filters');
+    await this._initExceptionFilters();
+    this.logger.info('Exception filters initialization completed');
 
     this.logger.info('Try to init server…');
     await this._initServer();

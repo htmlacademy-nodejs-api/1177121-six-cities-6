@@ -1,12 +1,12 @@
 import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { NextFunction, Request, Response } from 'express';
-import { ExceptionFilter } from './exception-filter.interface.js';
+import { IExceptionFilter } from './exception-filter.interface.js';
 import { ILogger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 
 @injectable()
-export class AppExceptionFilter implements ExceptionFilter {
+export class AppExceptionFilter implements IExceptionFilter {
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger
   ) {
