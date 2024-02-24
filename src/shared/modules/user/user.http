@@ -1,0 +1,27 @@
+# Пользователи
+## Создание нового пользователя
+
+POST http://localhost:5000/users/register/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Freddy Krueger",
+  "email": "nightmare-on@elm.str",
+  "avatar": "freddy-face.jpg",
+  "userType": "Standard",
+  "password": "12FreddysComingForYou"
+}
+
+###
+
+## Авторизация пользователя
+
+POST http://localhost:5000/users/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "nightmare-on@elm.str",
+  "password": "12FreddysComingForYou"
+}
+
+###

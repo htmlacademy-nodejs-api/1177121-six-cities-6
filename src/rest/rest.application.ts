@@ -5,7 +5,7 @@ import { IConfig, TRestSchema } from '../shared/libs/config/index.js';
 import { Component } from '../shared/types/index.js';
 import { IDatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
-import { IExceptionFilter } from '../shared/libs/rest/index.js';
+import { IController, IExceptionFilter } from '../shared/libs/rest/index.js';
 
 @injectable()
 export class RestApplication {
@@ -16,6 +16,7 @@ export class RestApplication {
     @inject(Component.Config) private readonly config: IConfig<TRestSchema>,
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
     @inject(Component.ExceptionFilter) private readonly appExceptionFilter: IExceptionFilter,
+    @inject(Component.UserController) private readonly userController: IController,
   ) {
     this.server = express();
   }
@@ -37,6 +38,10 @@ export class RestApplication {
     this.server.listen(port);
   }
 
+  private async _initControllers() {
+    this.server.use('/users', this.userController.router);
+  }
+
   private async _initMiddleware() {
     this.server.use(express.json());
   }
@@ -55,6 +60,10 @@ export class RestApplication {
     this.logger.info('Init app-level middleware');
     await this._initMiddleware();
     this.logger.info('App-level middleware initialization completed');
+
+    this.logger.info('Init controllers');
+    await this._initControllers();
+    this.logger.info('Controller initialization completed');
 
     this.logger.info('Init exception filters');
     await this._initExceptionFilters();

@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { Response, Router } from 'express';
+import asyncHandler from 'express-async-handler';
 import { IController } from './controller.interface.js';
 import { ILogger } from '../../logger/index.js';
 import { IRoute } from '../types/route.interface.js';
@@ -11,9 +12,7 @@ const DEFAULT_CONTENT_TYPE = 'application/json';
 export abstract class BaseController implements IController {
   private readonly _router: Router;
 
-  constructor(
-    protected readonly logger: ILogger
-  ) {
+  constructor(protected readonly logger: ILogger) {
     this._router = Router();
   }
 
@@ -22,15 +21,15 @@ export abstract class BaseController implements IController {
   }
 
   public addRoute(route: IRoute) {
-    this._router[route.method](route.path, route.handler.bind(this));
-    this.logger.info(`Route registered: ${route.method.toUpperCase()} ${route.path}`);
+    const wrapperAsyncHandler = asyncHandler(route.handler.bind(this));
+    this._router[route.method](route.path, wrapperAsyncHandler);
+    this.logger.info(
+      `Route registered: ${route.method.toUpperCase()} ${route.path}`
+    );
   }
 
   public send<T>(res: Response, statusCode: number, data: T): void {
-    res
-      .type(DEFAULT_CONTENT_TYPE)
-      .status(statusCode)
-      .json(data);
+    res.type(DEFAULT_CONTENT_TYPE).status(statusCode).json(data);
   }
 
   public created<T>(res: Response, data: T): void {

@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { TypeMessage } from '../constants/index.js';
 
 export function generateRandomValue(
@@ -20,4 +21,14 @@ export function getRandomItem<T>(items: T[]): T {
 }
 export function getErrorMessage(error: unknown): string {
   return error instanceof Error ? `${chalk.redBright(TypeMessage.Error)}: ${error.message}` : '';
+}
+
+export function fillDTO<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
+  return plainToInstance(someDto, plainObject, { excludeExtraneousValues: true });
+}
+
+export function createErrorObject(message: string) {
+  return {
+    error: message,
+  };
 }
