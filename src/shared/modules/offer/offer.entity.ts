@@ -18,8 +18,8 @@ export interface OfferEntity extends defaultClasses.Base {}
     collection: 'offers',
   },
   options: {
-    allowMixed: Severity.ALLOW
-  }
+    allowMixed: Severity.ALLOW,
+  },
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -40,7 +40,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public description!: string;
 
-  @prop({ required: true })
+  @prop({ required: true, default: Date.now })
   public postDate!: Date;
 
   @prop({
@@ -81,8 +81,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     require: true,
-    min: offerConstants.Rating.Min,
-    max: offerConstants.Rating.Max,
   })
   public rating!: number;
 
