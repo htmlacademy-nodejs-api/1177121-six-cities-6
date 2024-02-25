@@ -1,0 +1,76 @@
+# Предложения
+## Получение списка предложений по аренде
+GET http://localhost:5000/offers/ HTTP/1.1
+Content-Type: application/json
+
+###
+
+## Создание нового предложения по аренде
+POST http://localhost:5000/offers/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Dream Home Awaits: Find Your Perfect House with Us",
+  "description": "Embark on a journey to find your forever home with our collection of beautiful houses.",
+  "city": "Amsterdam",
+  "preview": "preview.jpg",
+  "photos": [
+    "photo-1.jpg",
+    "photo-2.jpg",
+    "photo-3.jpg",
+    "photo-4.jpg",
+    "photo-5.jpg",
+    "photo-6.jpg"
+  ],
+  "isPremium": true,
+  "isFavorite": true,
+  "houseType": "House",
+  "roomsCount": 3,
+  "guestsCount": 3,
+  "price": 666,
+  "amenities": [
+    "Breakfast",
+    "Air conditioning",
+    "Laptop friendly workspace"
+  ],
+  "userId": "65d9e02a6f455dd6f7039b26",
+  "location": {
+    "latitude": 52.370216,
+    "longitude": 4.895168
+  }
+}
+
+###
+
+## Получение детальной информации по предложению
+
+GET  http://localhost:5000/offers/65da7cb9f0f9fa631f45e591/ HTTP/1.1
+Content-Type: application/json
+
+###
+
+## Удаление предложения
+
+DELETE  http://localhost:5000/offers/65da7cb9f0f9fa631f45e591/ HTTP/1.1
+Content-Type: application/json
+
+###
+
+## Обновление предложения
+
+PUT  http://localhost:5000/offers/65da7cb9f0f9fa631f45e591/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "A luxurious house to sleep in",
+  "userId": "65d9e02a6f455dd6f7039b26"
+}
+
+###
+
+## Получение списка премиальных предложений для города
+
+GET  http://localhost:5000/offers/premium/Amsterdam HTTP/1.1
+Content-Type: application/json
+
+###

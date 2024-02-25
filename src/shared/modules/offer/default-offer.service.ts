@@ -4,7 +4,7 @@ import { Types } from 'mongoose';
 import { Component, SortType } from '../../types/index.js';
 import { offerConstants } from '../../constants/index.js';
 import { ILogger } from '../../libs/logger/index.js';
-import { IOfferService } from './offer-service.interface.js';
+import { IOfferService } from './types/offer-service.interface.js';
 import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
@@ -16,6 +16,15 @@ export class DefaultOfferService implements IOfferService {
     @inject(Component.OfferModel)
     private readonly offerModel: types.ModelType<OfferEntity>
   ) {}
+
+  // TODO: Выяснить почему каждый раз при повторном запросе проставляется новый id
+  private addFieldId = [
+    {
+      $addFields: {
+        id: '$_id',
+      },
+    },
+  ];
 
   private usersLookup = [
     {
@@ -70,10 +79,13 @@ export class DefaultOfferService implements IOfferService {
     const limit = count ?? offerConstants.OfferCount.Default;
 
     return this.offerModel
-      .find()
-      .sort({ createdAt: SortType.Down })
-      .limit(limit)
-      .populate(['userId'])
+      .aggregate([
+        ...this.addFieldId,
+        ...this.usersLookup,
+        ...this.commentsLookup,
+        { $limit: limit },
+        {$sort: { createdAt: SortType.Down }},
+      ])
       .exec();
   }
 
@@ -83,6 +95,7 @@ export class DefaultOfferService implements IOfferService {
         {
           $match: { _id: new Types.ObjectId(offerId) },
         },
+        ...this.addFieldId,
         ...this.commentsLookup,
         ...this.usersLookup,
       ])
@@ -98,9 +111,11 @@ export class DefaultOfferService implements IOfferService {
             $and: [{ isPremium: true }, { city: city }],
           },
         },
+        ...this.addFieldId,
         ...this.commentsLookup,
+        ...this.usersLookup,
         { $limit: offerConstants.OfferCount.Premium },
-        { $sort: { publicationDate: SortType.Down } },
+        {$sort: { createdAt: SortType.Down }},
       ])
       .exec();
   }

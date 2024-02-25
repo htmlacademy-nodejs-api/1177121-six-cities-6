@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { TypeMessage } from '../constants/index.js';
+import { ECity } from '../types/index.js';
 
 export function generateRandomValue(
   min: number,
@@ -31,4 +32,17 @@ export function createErrorObject(message: string) {
   return {
     error: message,
   };
+}
+
+export function checkString(data: unknown) {
+  return typeof data === 'string' && data;
+}
+
+export function capitalizeFirstLetter(string: string) {
+  return string.trim().charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function checkCity(city: string) {
+  const formattedCity = capitalizeFirstLetter(city);
+  return Object.values(ECity).includes(formattedCity as ECity) && formattedCity as ECity;
 }

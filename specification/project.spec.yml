@@ -195,7 +195,7 @@ paths:
             type: string
       responses:
         "200":
-          description: Успешное получение детальной информации.предложения.
+          description: Успешное получение детальной информации по предложению.
           content:
             application/json:
               schema:
@@ -227,7 +227,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createOffer'
+              $ref: '#/components/schemas/updateOffer'
         required: true
       responses:
         "200":
@@ -274,11 +274,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/authUserError'
 
-  /offers/premium:
+  /offers/premium/{city}:
     get:
       tags:
         - offers
-      summary: Премиальные предложения для города
+      summary: Получение списка премиальных предложений для города
       description: Получает список премиальных предложений для города.
       parameters:
         - in: query
@@ -330,7 +330,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/authUserError'
 
-  /offers{offerId}/favorite:
+  /offers/{offerId}/favorite:
     put:
       tags:
         - offers
@@ -531,6 +531,10 @@ components:
       type: object
 
       properties:
+        id:
+          type: string
+          example: 65d516d115a65ef93e3fe828
+
         title:
           type: string
           example: title
@@ -668,6 +672,72 @@ components:
         - price
         - amenities
         - userId
+        - location
+
+    updateOffer:
+      type: object
+
+      properties:
+        title:
+          type: string
+
+        description:
+          type: string
+
+        postDate:
+          type: string
+          format: date-time
+
+        city:
+          $ref: '#/components/schemas/city'
+
+        preview:
+          type: string
+
+        photos:
+          $ref: "#/components/schemas/photos"
+
+        isPremium:
+          type: boolean
+
+        isFavorite:
+          type: boolean
+
+        houseType:
+          $ref: "#/components/schemas/houseType"
+
+        roomsCount:
+          type: integer
+          example: 1
+
+        guestsCount:
+          type: integer
+          example: 1
+
+        price:
+          type: number
+          example: 100
+
+        amenities:
+          $ref: "#/components/schemas/amenities"
+
+        location:
+          $ref: '#/components/schemas/location'
+
+      required:
+        - title
+        - description
+        - postDate
+        - city
+        - preview
+        - photos
+        - isPremium
+        - isFavorite
+        - houseType
+        - roomsCount
+        - guestsCount
+        - price
+        - amenities
         - location
 
     city:
