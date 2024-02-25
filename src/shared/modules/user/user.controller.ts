@@ -6,10 +6,10 @@ import { ILogger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { IConfig, TRestSchema } from '../../libs/config/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { TCreateUserRequest } from './create-user-request.type.js';
-import { IUserService } from './user-service.interface.js';
+import { TCreateUserRequest } from './types/create-user-request.type.js';
+import { IUserService } from './types/user-service.interface.js';
 import { UserRdo } from './rdo/user.rdo.js';
-import { TLoginUserRequest } from './login-user-request.type.js';
+import { TLoginUserRequest } from './types/login-user-request.type.js';
 
 @injectable()
 export class UserController extends BaseController {
