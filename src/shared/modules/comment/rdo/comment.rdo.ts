@@ -14,10 +14,7 @@ export class CommentRdo {
   @Expose({ name: 'createdAt'})
   public postDate: string;
 
-  @Expose()
-  public offerId: string;
-
-  @Expose({ name: 'userId' })
+  @Expose({ name: 'userId'})
   @Type(() => UserRdo)
   public author: UserRdo;
 }

@@ -15,6 +15,7 @@ import {
   fillDTO,
   getNumberOrUndefined,
 } from '../../helpers/index.js';
+import { CommentRdo, ICommentService } from '../comment/index.js';
 import { DefaultOfferService } from './default-offer.service.js';
 import { TCreateOfferRequest } from './types/create-offer-request.type.js';
 import { TUpdateOfferRequest } from './types/update-offer-request.type.js';
@@ -28,6 +29,7 @@ export class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: ILogger,
     @inject(Component.OfferService) private readonly offerService: DefaultOfferService,
+    @inject(Component.CommentService) private readonly commentService: ICommentService
   ) {
     super(logger);
 
@@ -40,6 +42,7 @@ export class OfferController extends BaseController {
     this.addRoute({ path: '/premium/:city', method: EHttpMethod.Get, handler: this.findPremium });
     this.addRoute({ path: '/favorites', method: EHttpMethod.Get, handler: this.findFavorites });
     this.addRoute({ path: '/:offerId/favorite', method: EHttpMethod.Get, handler: this.updateFavorite });
+    this.addRoute({ path: '/:offerId/comments', method: EHttpMethod.Get, handler: this.getComments });
   }
 
   public async create({ body }: TCreateOfferRequest, res: Response): Promise<void> {
@@ -84,6 +87,8 @@ export class OfferController extends BaseController {
         'OfferController',
       );
     }
+
+    await this.commentService.deleteByOfferId(offerId);
 
     this.noContent(res, existsOffer);
   }
@@ -141,5 +146,19 @@ export class OfferController extends BaseController {
       'Not implemented.',
       'OfferController'
     );
+  }
+
+  public async getComments({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
+    if (!await this.offerService.exists(offerId)) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with the specified id «${offerId}» is not found.`,
+        'OfferController'
+      );
+    }
+
+    const comments = await this.commentService.findByOfferId(offerId);
+
+    this.ok(res, fillDTO(CommentRdo, comments));
   }
 }

@@ -74,3 +74,8 @@ GET  http://localhost:5000/offers/premium/amsterdam HTTP/1.1
 Content-Type: application/json
 
 ###
+
+## Список комментариев к объявлению
+GET http://localhost:5000/offers/65da7d3cf0f9fa631f45e593/comments HTTP/1.1
+
+###
