@@ -3,6 +3,9 @@ import { Expose } from 'class-transformer';
 import { EUserType } from '../../../types/index.js';
 
 export class UserRdo {
+  @Expose({ name: '_id' })
+  public id: string;
+
   @Expose()
   public name: string;
 

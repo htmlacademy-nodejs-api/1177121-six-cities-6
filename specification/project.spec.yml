@@ -244,6 +244,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/authUserError'
+        '404':
+          description: Ошибка обновления предложения.
 
     delete:
       tags:
