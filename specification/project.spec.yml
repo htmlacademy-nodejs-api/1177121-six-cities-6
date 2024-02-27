@@ -813,7 +813,7 @@ components:
           type: string
           example: A great place to sleep!
 
-        createdAt:
+        postDate:
           type: string
           format: date-time
 
