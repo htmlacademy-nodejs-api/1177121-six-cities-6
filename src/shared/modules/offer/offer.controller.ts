@@ -18,11 +18,13 @@ import {
 } from '../../helpers/index.js';
 import { CommentRdo, ICommentService } from '../comment/index.js';
 import { DefaultOfferService } from './default-offer.service.js';
-import { TCreateOfferRequest } from './types/create-offer-request.type.js';
-import { TUpdateOfferRequest } from './types/update-offer-request.type.js';
-import { TFindOfferRequest } from './types/find-offer-request.type.js';
-import { TParamOfferId } from './types/param-offerid.type.js';
-import { TParamCity } from './types/param-city.type.js';
+import {
+  TCreateOfferRequest,
+  TUpdateOfferRequest,
+  TOfferRequest,
+  TParamOfferId,
+  TParamCity,
+} from './types/index.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
 
 @injectable()
@@ -36,8 +38,18 @@ export class OfferController extends BaseController {
 
     this.logger.info('Register router for OfferController...');
     this.addRoute({ path: '/', method: EHttpMethod.Post, handler: this.create });
-    this.addRoute({ path: '/:offerId', method: EHttpMethod.Patch, handler: this.updateById });
-    this.addRoute({ path: '/:offerId', method: EHttpMethod.Delete, handler: this.deleteById });
+    this.addRoute({
+      path: '/:offerId',
+      method: EHttpMethod.Patch,
+      handler: this.update,
+      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+    });
+    this.addRoute({
+      path: '/:offerId',
+      method: EHttpMethod.Delete,
+      handler: this.delete,
+      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+    });
     this.addRoute({
       path: '/:offerId',
       method: EHttpMethod.Get,
@@ -45,10 +57,20 @@ export class OfferController extends BaseController {
       middlewares: [new ValidateObjectIdMiddleware('offerId')]
     });
     this.addRoute({ path: '/', method: EHttpMethod.Get, handler: this.index });
-    this.addRoute({ path: '/premium/:city', method: EHttpMethod.Get, handler: this.findPremium });
-    this.addRoute({ path: '/favorites', method: EHttpMethod.Get, handler: this.findFavorites });
-    this.addRoute({ path: '/:offerId/favorite', method: EHttpMethod.Get, handler: this.updateFavorite });
-    this.addRoute({ path: '/:offerId/comments', method: EHttpMethod.Get, handler: this.getComments });
+    this.addRoute({ path: '/premium/:city', method: EHttpMethod.Get, handler: this.getPremium });
+    this.addRoute({ path: '/favorites', method: EHttpMethod.Get, handler: this.getFavorites });
+    this.addRoute({
+      path: '/:offerId/favorite',
+      method: EHttpMethod.Get,
+      handler: this.updateFavorite,
+      middlewares: [new ValidateObjectIdMiddleware('offerId')],
+    });
+    this.addRoute({
+      path: '/:offerId/comments',
+      method: EHttpMethod.Get,
+      handler: this.getComments,
+      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+    });
   }
 
   public async create({ body }: TCreateOfferRequest, res: Response): Promise<void> {
@@ -57,7 +79,7 @@ export class OfferController extends BaseController {
     this.created(res, fillDTO(OfferRdo, offer));
   }
 
-  public async updateById({ body, params: { offerId } }: TUpdateOfferRequest, res: Response): Promise<void> {
+  public async update({ body, params: { offerId } }: TUpdateOfferRequest, res: Response): Promise<void> {
     const existsOfferId = checkString(offerId);
 
     if (!existsOfferId) {
@@ -83,7 +105,7 @@ export class OfferController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async deleteById({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
+  public async delete({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
     const existsOffer = await this.offerService.deleteById(offerId);
 
     if (!existsOffer) {
@@ -99,7 +121,7 @@ export class OfferController extends BaseController {
     this.noContent(res, existsOffer);
   }
 
-  public async index({ query: { limit } }: TFindOfferRequest, res: Response): Promise<void> {
+  public async index({ query: { limit } }: TOfferRequest, res: Response): Promise<void> {
     const count = getNumberOrUndefined(limit);
 
     const offers = await this.offerService.find(count);
@@ -122,7 +144,7 @@ export class OfferController extends BaseController {
     this.ok(res, fillDTO(OfferRdo, existsOffer));
   }
 
-  public async findPremium({ params: { city } }: Request<TParamCity>, res: Response): Promise<void> {
+  public async getPremium({ params: { city } }: Request<TParamCity>, res: Response): Promise<void> {
     const existsCity = checkCity(city);
 
     if (!existsCity) {
@@ -138,7 +160,7 @@ export class OfferController extends BaseController {
     this.ok(res, fillDTO(OfferRdo, premiumOffers));
   }
 
-  public async findFavorites(_req: Request, _res: Response): Promise<void> {
+  public async getFavorites(_req: Request, _res: Response): Promise<void> {
     throw new HttpError(
       StatusCodes.NOT_IMPLEMENTED,
       'Not implemented.',
@@ -154,7 +176,9 @@ export class OfferController extends BaseController {
     );
   }
 
-  public async getComments({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
+  public async getComments(
+    { params: { offerId }, query: { limit } }: Request<TParamOfferId>, res: Response
+  ): Promise<void> {
     if (!await this.offerService.exists(offerId)) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
@@ -163,7 +187,8 @@ export class OfferController extends BaseController {
       );
     }
 
-    const comments = await this.commentService.findByOfferId(offerId);
+    const count = getNumberOrUndefined(limit);
+    const comments = await this.commentService.findByOfferId(offerId, count);
 
     this.ok(res, fillDTO(CommentRdo, comments));
   }
