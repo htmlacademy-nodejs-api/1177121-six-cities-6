@@ -5,6 +5,7 @@ import {
   BaseController,
   EHttpMethod,
   HttpError,
+  ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
 import { Component } from '../../types/component.enum.js';
 import { ILogger } from '../../libs/logger/logger.interface.js';
@@ -37,8 +38,13 @@ export class OfferController extends BaseController {
     this.addRoute({ path: '/', method: EHttpMethod.Post, handler: this.create });
     this.addRoute({ path: '/:offerId', method: EHttpMethod.Patch, handler: this.updateById });
     this.addRoute({ path: '/:offerId', method: EHttpMethod.Delete, handler: this.deleteById });
+    this.addRoute({
+      path: '/:offerId',
+      method: EHttpMethod.Get,
+      handler: this.show,
+      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+    });
     this.addRoute({ path: '/', method: EHttpMethod.Get, handler: this.index });
-    this.addRoute({ path: '/:offerId', method: EHttpMethod.Get, handler: this.findById });
     this.addRoute({ path: '/premium/:city', method: EHttpMethod.Get, handler: this.findPremium });
     this.addRoute({ path: '/favorites', method: EHttpMethod.Get, handler: this.findFavorites });
     this.addRoute({ path: '/:offerId/favorite', method: EHttpMethod.Get, handler: this.updateFavorite });
@@ -102,7 +108,7 @@ export class OfferController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async findById({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
+  public async show({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
     const existsOffer = await this.offerService.findById(offerId);
 
     if (!existsOffer) {
