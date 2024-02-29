@@ -2,7 +2,7 @@ import { offerConstants } from '../../../constants/index.js';
 import { formatsObjectToString } from '../../../helpers/index.js';
 import { EAmenity, ECity, EHouseType } from '../../../types/index.js';
 
-export const CreateOfferValidationMessage = {
+export const OfferValidationMessage = {
   title: {
     minLength: `Minimum title length must be ${offerConstants.TitleLength.Min}`,
     maxLength: `Maximum title length must be ${offerConstants.TitleLength.Max}`,

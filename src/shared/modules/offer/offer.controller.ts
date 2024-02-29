@@ -5,9 +5,10 @@ import {
   BaseController,
   EHttpMethod,
   HttpError,
+  ValidateDtoMiddleware,
   ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
-import { Component } from '../../types/component.enum.js';
+import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/logger/logger.interface.js';
 import {
   capitalizeFirstLetter,
@@ -17,7 +18,6 @@ import {
   getNumberOrUndefined,
 } from '../../helpers/index.js';
 import { CommentRdo, ICommentService } from '../comment/index.js';
-import { DefaultOfferService } from './default-offer.service.js';
 import {
   TCreateOfferRequest,
   TUpdateOfferRequest,
@@ -25,7 +25,9 @@ import {
   TParamOfferId,
   TParamCity,
 } from './types/index.js';
+import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
+import { DefaultOfferService } from './default-offer.service.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -37,12 +39,20 @@ export class OfferController extends BaseController {
     super(logger);
 
     this.logger.info('Register router for OfferController...');
-    this.addRoute({ path: '/', method: EHttpMethod.Post, handler: this.create });
+    this.addRoute({
+      path: '/',
+      method: EHttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)],
+    });
     this.addRoute({
       path: '/:offerId',
       method: EHttpMethod.Patch,
       handler: this.update,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new ValidateDtoMiddleware(UpdateOfferDto)
+      ]
     });
     this.addRoute({
       path: '/:offerId',

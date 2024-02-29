@@ -23,90 +23,90 @@ import {
   TLocation,
 } from '../../../types/index.js';
 import { offerConstants } from '../../../constants/index.js';
-import { CreateOfferValidationMessage } from './offer.messages.js';
+import { OfferValidationMessage } from './offer.messages.js';
 
 export class CreateOfferDto {
   @MinLength(offerConstants.TitleLength.Min, {
-    message: CreateOfferValidationMessage.title.minLength,
+    message: OfferValidationMessage.title.minLength,
   })
   @MaxLength(offerConstants.TitleLength.Max, {
-    message: CreateOfferValidationMessage.title.maxLength,
+    message: OfferValidationMessage.title.maxLength,
   })
   public title: string;
 
   @MinLength(offerConstants.DescriptionLength.Min, {
-    message: CreateOfferValidationMessage.description.minLength,
+    message: OfferValidationMessage.description.minLength,
   })
   @MaxLength(offerConstants.DescriptionLength.Max, {
-    message: CreateOfferValidationMessage.description.maxLength,
+    message: OfferValidationMessage.description.maxLength,
   })
   public description: string;
 
   @IsOptional()
   @IsDateString(
     {},
-    { message: CreateOfferValidationMessage.postDate.invalidFormat }
+    { message: OfferValidationMessage.postDate.invalidFormat }
   )
   public postDate: Date;
 
   @IsEnum(ECity, {
-    message: CreateOfferValidationMessage.city.invalid,
+    message: OfferValidationMessage.city.invalid,
   })
   public city: ECity;
 
   @Matches(offerConstants.IMAGE_REGEX, {
-    message: CreateOfferValidationMessage.preview.matches,
+    message: OfferValidationMessage.preview.matches,
   })
   public preview: string;
 
-  @IsArray({ message: CreateOfferValidationMessage.photos.invalidFormat })
+  @IsArray({ message: OfferValidationMessage.photos.invalidFormat })
   @ArrayMinSize(offerConstants.PhotosArrayLength.Min, {
-    message: CreateOfferValidationMessage.photos.ArrayMinSize,
+    message: OfferValidationMessage.photos.ArrayMinSize,
   })
   @ArrayMaxSize(offerConstants.PhotosArrayLength.Max, {
-    message: CreateOfferValidationMessage.photos.ArrayMaxSize,
+    message: OfferValidationMessage.photos.ArrayMaxSize,
   })
   public photos: string[];
 
-  @IsBoolean({ message: CreateOfferValidationMessage.isPremium.invalidFormat })
+  @IsBoolean({ message: OfferValidationMessage.isPremium.invalidFormat })
   public isPremium: boolean;
 
   @IsEnum(EHouseType, {
-    message: CreateOfferValidationMessage.houseType.invalid,
+    message: OfferValidationMessage.houseType.invalid,
   })
   public houseType: EHouseType;
 
-  @IsInt({ message: CreateOfferValidationMessage.roomsCount.invalidFormat })
+  @IsInt({ message: OfferValidationMessage.roomsCount.invalidFormat })
   @Min(offerConstants.RoomCount.Min, {
-    message: CreateOfferValidationMessage.roomsCount.minValue,
+    message: OfferValidationMessage.roomsCount.minValue,
   })
   @Max(offerConstants.RoomCount.Max, {
-    message: CreateOfferValidationMessage.roomsCount.maxValue,
+    message: OfferValidationMessage.roomsCount.maxValue,
   })
   public roomsCount: number;
 
-  @IsInt({ message: CreateOfferValidationMessage.guestsCount.invalidFormat })
+  @IsInt({ message: OfferValidationMessage.guestsCount.invalidFormat })
   @Min(offerConstants.GuestCount.Min, {
-    message: CreateOfferValidationMessage.guestsCount.minValue,
+    message: OfferValidationMessage.guestsCount.minValue,
   })
   @Max(offerConstants.GuestCount.Max, {
-    message: CreateOfferValidationMessage.guestsCount.maxValue,
+    message: OfferValidationMessage.guestsCount.maxValue,
   })
   public guestsCount: number;
 
-  @IsInt({ message: CreateOfferValidationMessage.price.invalidFormat })
-  @Min(100, { message: CreateOfferValidationMessage.price.minValue })
-  @Max(100000, { message: CreateOfferValidationMessage.price.maxValue })
+  @IsInt({ message: OfferValidationMessage.price.invalidFormat })
+  @Min(100, { message: OfferValidationMessage.price.minValue })
+  @Max(100000, { message: OfferValidationMessage.price.maxValue })
   public price: number;
 
-  @IsArray({ message: CreateOfferValidationMessage.amenities.invalid })
+  @IsArray({ message: OfferValidationMessage.amenities.invalid })
   @IsIn(Object.values(EAmenity), {
     each: true,
-    message: CreateOfferValidationMessage.amenities.invalid,
+    message: OfferValidationMessage.amenities.invalid,
   })
   public amenities: EAmenity[];
 
-  @IsMongoId({ message: CreateOfferValidationMessage.userId.invalidId })
+  @IsMongoId({ message: OfferValidationMessage.userId.invalidId })
   public userId: string;
 
   @ValidateNested()
