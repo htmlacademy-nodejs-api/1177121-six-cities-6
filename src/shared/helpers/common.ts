@@ -13,7 +13,8 @@ export function generateRandomValue(
 
 export function getRandomItems<T>(items: T[]): T[] {
   const startPosition = generateRandomValue(0, items.length - 1);
-  const endPosition = startPosition + generateRandomValue(startPosition, items.length);
+  const endPosition =
+    startPosition + generateRandomValue(startPosition, items.length);
 
   return items.slice(startPosition, endPosition);
 }
@@ -51,7 +52,10 @@ export function capitalizeFirstLetter(string: string) {
 export function checkCity(city: string) {
   const formattedCity = capitalizeFirstLetter(city);
 
-  return Object.values(ECity).includes(formattedCity as ECity) && (formattedCity as ECity);
+  return (
+    Object.values(ECity).includes(formattedCity as ECity) &&
+    (formattedCity as ECity)
+  );
 }
 
 export function getNumberOrUndefined(data: unknown) {
@@ -62,4 +66,8 @@ export function getNumberOrUndefined(data: unknown) {
 
   // eslint-disable-next-line no-useless-return
   return;
+}
+
+export function formatsObjectToString(obj: Record<string, string>) {
+  return Object.values(obj).join(', ');
 }

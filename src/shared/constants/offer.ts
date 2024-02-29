@@ -1,3 +1,5 @@
+export const IMAGE_REGEX = /\.(jpg|png)(\?.*)?$/i;
+
 export const OfferCount = {
   Default: 60,
   Premium: 3,
@@ -11,6 +13,11 @@ export const TitleLength = {
 export const DescriptionLength = {
   Min: 20,
   Max: 1024,
+} as const;
+
+export const PhotosArrayLength = {
+  Min: 6,
+  Max: 6,
 } as const;
 
 export const WeekDay = {

@@ -55,7 +55,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     trim: true,
     match: [
       /\.(jpg|png)(\?.*)?$/i,
-      'The avatar image must match the format .jpg or .png',
+      'The preview image must match the format .jpg or .png',
     ],
   })
   public preview!: string;

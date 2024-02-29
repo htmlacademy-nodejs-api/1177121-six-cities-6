@@ -17,7 +17,6 @@ export class DefaultOfferService implements IOfferService {
     private readonly offerModel: types.ModelType<OfferEntity>
   ) {}
 
-  // TODO: Выяснить почему каждый раз при повторном запросе проставляется новый id
   private addFieldId = [
     {
       $addFields: {
