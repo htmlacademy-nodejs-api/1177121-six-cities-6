@@ -21,7 +21,7 @@ import {
   EHouseType,
   TLocation,
 } from '../../../types/index.js';
-import { offerConstants } from '../../../constants/index.js';
+import { IMAGE_REGEX, offerConstants } from '../../../constants/index.js';
 import { OfferValidationMessage } from './offer.messages.js';
 
 export class UpdateOfferDto {
@@ -44,10 +44,7 @@ export class UpdateOfferDto {
   public description?: string;
 
   @IsOptional()
-  @IsDateString(
-    {},
-    { message: OfferValidationMessage.postDate.invalidFormat }
-  )
+  @IsDateString({}, { message: OfferValidationMessage.postDate.invalidFormat })
   public postDate?: Date;
 
   @IsOptional()
@@ -57,7 +54,7 @@ export class UpdateOfferDto {
   public city?: ECity;
 
   @IsOptional()
-  @Matches(offerConstants.IMAGE_REGEX, {
+  @Matches(IMAGE_REGEX, {
     message: OfferValidationMessage.preview.matches,
   })
   public preview?: string;

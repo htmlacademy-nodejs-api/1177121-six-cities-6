@@ -22,7 +22,7 @@ import {
   EHouseType,
   TLocation,
 } from '../../../types/index.js';
-import { offerConstants } from '../../../constants/index.js';
+import { IMAGE_REGEX, offerConstants } from '../../../constants/index.js';
 import { OfferValidationMessage } from './offer.messages.js';
 
 export class CreateOfferDto {
@@ -43,10 +43,7 @@ export class CreateOfferDto {
   public description: string;
 
   @IsOptional()
-  @IsDateString(
-    {},
-    { message: OfferValidationMessage.postDate.invalidFormat }
-  )
+  @IsDateString({}, { message: OfferValidationMessage.postDate.invalidFormat })
   public postDate: Date;
 
   @IsEnum(ECity, {
@@ -54,7 +51,7 @@ export class CreateOfferDto {
   })
   public city: ECity;
 
-  @Matches(offerConstants.IMAGE_REGEX, {
+  @Matches(IMAGE_REGEX, {
     message: OfferValidationMessage.preview.matches,
   })
   public preview: string;

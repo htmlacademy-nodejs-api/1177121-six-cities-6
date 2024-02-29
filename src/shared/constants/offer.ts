@@ -1,5 +1,3 @@
-export const IMAGE_REGEX = /\.(jpg|png)(\?.*)?$/i;
-
 export const OfferCount = {
   Default: 60,
   Premium: 3,

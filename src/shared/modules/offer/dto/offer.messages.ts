@@ -12,7 +12,7 @@ export const OfferValidationMessage = {
     maxLength: `Maximum description length must be ${offerConstants.DescriptionLength.Max}`,
   },
   postDate: {
-    invalidFormat: 'postDate must be a valid ISO date',
+    invalidFormat: 'Field postDate must be a valid ISO date',
   },
   city: {
     invalid: `City must be one of: ${formatsObjectToString(ECity)}`,
@@ -26,23 +26,23 @@ export const OfferValidationMessage = {
     ArrayMaxSize: `Photos must contain exactly ${offerConstants.PhotosArrayLength.Max} images`,
   },
   isPremium: {
-    invalidFormat: 'isPremium must be an boolean',
+    invalidFormat: 'Field isPremium must be an boolean',
   },
   houseType: {
-    invalid: `houseType must be ${formatsObjectToString(EHouseType)}`,
+    invalid: `House type must be ${formatsObjectToString(EHouseType)}`,
   },
   roomsCount: {
-    invalidFormat: 'roomsCount must be an integer',
-    minValue: `Minimum roomsCount is ${offerConstants.RoomCount.Min}`,
-    maxValue: `Maximum roomsCount is ${offerConstants.RoomCount.Max}`,
+    invalidFormat: 'Rooms count must be an integer',
+    minValue: `Minimum rooms count is ${offerConstants.RoomCount.Min}`,
+    maxValue: `Maximum rooms count is ${offerConstants.RoomCount.Max}`,
   },
   guestsCount: {
-    invalidFormat: 'guestsCount must be an integer',
-    minValue: `Minimum guestsCount is ${offerConstants.GuestCount.Min}`,
-    maxValue: `Maximum guestsCount is ${offerConstants.GuestCount.Max}`,
+    invalidFormat: 'Guests count must be an integer',
+    minValue: `Minimum guests count is ${offerConstants.GuestCount.Min}`,
+    maxValue: `Maximum guests count is ${offerConstants.GuestCount.Max}`,
   },
   price: {
-    invalidFormat: 'rentPrice must be an integer',
+    invalidFormat: 'Price must be an integer',
     minValue: `Minimum price is ${offerConstants.Price.Min}`,
     maxValue: `Maximum price is ${offerConstants.Price.Max}`,
   },
@@ -54,6 +54,6 @@ export const OfferValidationMessage = {
     invalidLongitude: 'Longitude must be a valid number',
   },
   userId: {
-    invalidId: 'userId field must be a valid id',
+    invalidId: 'Field userId must be a valid id',
   },
 } as const;
