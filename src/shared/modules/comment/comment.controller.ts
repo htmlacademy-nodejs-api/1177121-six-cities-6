@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from 'inversify';
 import {
   BaseController,
-  HttpError,
   EHttpMethod,
   ValidateObjectIdMiddleware,
   ValidateDtoMiddleware,
+  DocumentExistsMiddleware,
 } from '../../libs/rest/index.js';
 import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/logger/index.js';
@@ -37,21 +36,15 @@ export class CommentController extends BaseController {
       path: '/offerId',
       method: EHttpMethod.Get,
       handler: this.findByOfferId,
-      middlewares: [ new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'id'),
+      ]
     });
   }
 
   public async create({ body } : Request, res: Response): Promise<void> {
     const offerId = body.offerId;
-
-    if (! await this.offerService.exists(offerId)) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Offer with the specified id ${offerId} not found.`,
-        'CommentController'
-      );
-    }
-
     const comment = await this.commentService.create(body);
 
     await this.offerService.incCommentCount(offerId);
