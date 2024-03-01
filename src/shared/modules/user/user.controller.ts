@@ -1,7 +1,12 @@
 import { inject, injectable } from 'inversify';
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { BaseController, EHttpMethod, HttpError, ValidateDtoMiddleware } from '../../libs/rest/index.js';
+import {
+  BaseController,
+  EHttpMethod,
+  HttpError,
+  ValidateDtoMiddleware,
+} from '../../libs/rest/index.js';
 import { ILogger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { IConfig, TRestSchema } from '../../libs/config/index.js';
