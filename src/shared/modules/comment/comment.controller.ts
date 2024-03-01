@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { inject, injectable } from 'inversify';
 import {
   BaseController,
   HttpError,
   EHttpMethod,
   ValidateObjectIdMiddleware,
+  ValidateDtoMiddleware,
 } from '../../libs/rest/index.js';
-import { inject, injectable } from 'inversify';
 import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/logger/index.js';
 import { IOfferService, offerTypes } from '../offer/index.js';
 import { fillDTO, getNumberOrUndefined } from '../../helpers/index.js';
 import { ICommentService } from './comment-service.interface.js';
 import { CommentRdo } from './rdo/comment.rdo.js';
+import { CreateCommentDto } from './dto/index.js';
 
 @injectable()
 export class CommentController extends BaseController {
@@ -25,7 +27,12 @@ export class CommentController extends BaseController {
 
     this.logger.info('Register routes for CommentsController...');
 
-    this.addRoute({ path: '/', method: EHttpMethod.Post, handler: this.create });
+    this.addRoute({
+      path: '/',
+      method: EHttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateCommentDto)],
+    });
     this.addRoute({
       path: '/offerId',
       method: EHttpMethod.Get,

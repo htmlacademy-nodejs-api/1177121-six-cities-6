@@ -9,7 +9,7 @@ import { fillDTO } from '../../helpers/index.js';
 import { TCreateUserRequest, TLoginUserRequest } from './types/index.js';
 import { IUserService } from './user-service.interface.js';
 import { UserRdo } from './rdo/user.rdo.js';
-import { CreateUserDto, LoginUserDto } from './index.js';
+import { CreateUserDto, LoginUserDto } from './dto/index.js';
 
 @injectable()
 export class UserController extends BaseController {

@@ -4,7 +4,7 @@ import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/logger/index.js';
 import { IUserService } from './user-service.interface.js';
 import { UserEntity } from './user.entity.js';
-import { CreateUserDto } from './dto/create-user.dto.js';
+import { CreateUserDto } from './dto/index.js';
 
 @injectable()
 export class DefaultUserService implements IUserService {
