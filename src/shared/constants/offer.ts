@@ -13,6 +13,11 @@ export const DescriptionLength = {
   Max: 1024,
 } as const;
 
+export const PhotosArrayLength = {
+  Min: 6,
+  Max: 6,
+} as const;
+
 export const WeekDay = {
   First: 1,
   Last: 7,

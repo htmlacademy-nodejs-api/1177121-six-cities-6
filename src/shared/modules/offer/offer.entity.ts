@@ -6,9 +6,10 @@ import {
   Ref,
   Severity,
 } from '@typegoose/typegoose';
-import { offerConstants } from '../../constants/index.js';
+import { IMAGE_REGEX, offerConstants } from '../../constants/index.js';
 import { EAmenity, ECity, EHouseType, TLocation } from '../../types/index.js';
 import { UserEntity } from '../user/index.js';
+import { OfferValidationMessage } from './index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface OfferEntity extends defaultClasses.Base {}
@@ -53,10 +54,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
     trim: true,
-    match: [
-      /\.(jpg|png)(\?.*)?$/i,
-      'The avatar image must match the format .jpg or .png',
-    ],
+    match: [IMAGE_REGEX, OfferValidationMessage.preview.matches],
   })
   public preview!: string;
 

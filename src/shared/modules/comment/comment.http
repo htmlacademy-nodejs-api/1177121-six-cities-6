@@ -1,0 +1,14 @@
+# Комментарии
+## Добавление комментария для предложения
+
+POST  http://localhost:5000/comments/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "text": "Раз, два, Фредди заберет тебя",
+  "rating": 5,
+  "offerId": "65da7d3cf0f9fa631f45e593",
+  "userId": "65d9e02a6f455dd6f7039b26"
+}
+
+###

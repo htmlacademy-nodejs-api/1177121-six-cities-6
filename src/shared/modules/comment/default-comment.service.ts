@@ -17,16 +17,18 @@ export class DefaultCommentService implements ICommentService {
 
   public async create(dto: CreateCommentDto): Promise<DocumentType<CommentEntity>> {
     const comment = await this.commentModel.create(dto);
-    this.logger.info(`New comment created:${dto.text}`);
+    this.logger.info(`New comment created: ${dto.text}`);
 
     return comment;
   }
 
-  public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {
+  public async findByOfferId(offerId: string, count?: number): Promise<DocumentType<CommentEntity>[]> {
+    const limit = count ?? commentConstants.DEFAULT_COMMENT_COUNT;
+
     return this.commentModel
       .find({ offerId })
       .sort({ createdAt: SortType.Down })
-      .limit(commentConstants.DEFAULT_COMMENT_COUNT)
+      .limit(limit)
       .populate('userId')
       .exec();
   }

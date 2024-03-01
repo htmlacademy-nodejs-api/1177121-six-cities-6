@@ -1,9 +1,9 @@
 import { DocumentType } from '@typegoose/typegoose';
-import { CreateOfferDto } from '../dto/create-offer.dto.js';
-import { UpdateOfferDto } from '../dto/update-offer.dto.js';
-import { OfferEntity } from '../offer.entity.js';
+import { IDocumentExists } from '../../types/index.js';
+import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
+import { OfferEntity } from './offer.entity.js';
 
-export interface IOfferService {
+export interface IOfferService extends IDocumentExists {
   create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>>;
   updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null>;
   deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null>;

@@ -6,7 +6,8 @@ import {
 } from '@typegoose/typegoose';
 import { EUserType, TUser } from '../../types/index.js';
 import { createSHA256 } from '../../helpers/index.js';
-import { DEFAULT_AVATAR, NameLength } from '../../constants/index.js';
+import { IMAGE_REGEX, userConstants } from '../../constants/index.js';
+import { UserMessages } from './dto/user.messages.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}
@@ -22,8 +23,8 @@ export interface UserEntity extends defaultClasses.Base {}
 export class UserEntity extends defaultClasses.TimeStamps implements TUser {
   @prop({
     required: true,
-    minlength: [NameLength.Min, `Min length for name is ${NameLength.Min}`],
-    maxlength: [NameLength.Max, `Max length for name is ${NameLength.Max}`],
+    minlength: [userConstants.NameLength.Min, UserMessages.name.lengthField],
+    maxlength: [userConstants.NameLength.Max, UserMessages.name.lengthField],
     default: '',
   })
   public name!: string;
@@ -31,21 +32,15 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
   @prop({
     required: true,
     unique: true,
-    match: [
-      /^([\w-\\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-      'Email is incorrect'
-    ],
+    match: [userConstants.EMAIL_REGEX, UserMessages.email],
   })
   public email!: string;
 
   @prop({
     required: false,
     trim: true,
-    match: [
-      /\.(jpg|png)(\?.*)?$/i,
-      'The avatar image must match the format .jpg or .png',
-    ],
-    default: DEFAULT_AVATAR,
+    match: [IMAGE_REGEX, UserMessages.avatar.matches],
+    default: userConstants.DEFAULT_AVATAR,
   })
   public avatar!: string;
 

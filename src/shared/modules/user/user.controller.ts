@@ -1,15 +1,20 @@
 import { inject, injectable } from 'inversify';
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { BaseController, EHttpMethod, HttpError } from '../../libs/rest/index.js';
+import {
+  BaseController,
+  EHttpMethod,
+  HttpError,
+  ValidateDtoMiddleware,
+} from '../../libs/rest/index.js';
 import { ILogger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { IConfig, TRestSchema } from '../../libs/config/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { TCreateUserRequest } from './types/create-user-request.type.js';
-import { IUserService } from './types/user-service.interface.js';
+import { TCreateUserRequest, TLoginUserRequest } from './types/index.js';
+import { IUserService } from './user-service.interface.js';
 import { UserRdo } from './rdo/user.rdo.js';
-import { TLoginUserRequest } from './types/login-user-request.type.js';
+import { CreateUserDto, LoginUserDto } from './dto/index.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -19,12 +24,30 @@ export class UserController extends BaseController {
     @inject(Component.Config) private readonly configService: IConfig<TRestSchema>
   ) {
     super(logger);
-    this.logger.info('Register routes for UserController…');
+    this.logger.info('Register routes for UserController...');
 
-    this.addRoute({ path: '/register', method: EHttpMethod.Post, handler: this.create });
-    this.addRoute({ path: '/login', method: EHttpMethod.Post, handler: this.login });
-    this.addRoute({ path: '/logout', method: EHttpMethod.Post, handler: this.logout });
-    this.addRoute({ path: '/login', method: EHttpMethod.Get, handler: this.checkAuthToken });
+    this.addRoute({
+      path: '/register',
+      method: EHttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateUserDto)],
+    });
+    this.addRoute({
+      path: '/login',
+      method: EHttpMethod.Post,
+      handler: this.login,
+      middlewares: [new ValidateDtoMiddleware(LoginUserDto)],
+    });
+    this.addRoute({
+      path: '/logout',
+      method: EHttpMethod.Post,
+      handler: this.logout,
+    });
+    this.addRoute({
+      path: '/login',
+      method: EHttpMethod.Get,
+      handler: this.checkAuthToken,
+    });
   }
 
   public async create(

@@ -4,7 +4,7 @@ import { Types } from 'mongoose';
 import { Component, SortType } from '../../types/index.js';
 import { offerConstants } from '../../constants/index.js';
 import { ILogger } from '../../libs/logger/index.js';
-import { IOfferService } from './types/offer-service.interface.js';
+import { IOfferService } from './offer-service.interface.js';
 import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
@@ -17,7 +17,6 @@ export class DefaultOfferService implements IOfferService {
     private readonly offerModel: types.ModelType<OfferEntity>
   ) {}
 
-  // TODO: Выяснить почему каждый раз при повторном запросе проставляется новый id
   private addFieldId = [
     {
       $addFields: {

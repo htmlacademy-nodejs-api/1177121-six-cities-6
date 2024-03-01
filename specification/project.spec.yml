@@ -244,6 +244,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/authUserError'
+        '404':
+          description: Ошибка обновления предложения.
 
     delete:
       tags:
@@ -811,7 +813,7 @@ components:
           type: string
           example: A great place to sleep!
 
-        createdAt:
+        postDate:
           type: string
           format: date-time
 
