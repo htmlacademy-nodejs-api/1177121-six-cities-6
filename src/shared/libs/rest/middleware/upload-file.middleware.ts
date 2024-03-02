@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import multer, { diskStorage } from 'multer';
 import { extension } from 'mime-types';
-import * as crypto from 'node:crypto';
+import { nanoid } from 'nanoid';
 import { IMiddleware } from './middleware.interface.js';
 
 export class UploadFileMiddleware implements IMiddleware {
@@ -15,7 +15,7 @@ export class UploadFileMiddleware implements IMiddleware {
       destination: this.uploadDirectory,
       filename: (_req, file, callback) => {
         const fileExtension = extension(file.mimetype);
-        const filename = crypto.randomUUID();
+        const filename = nanoid();
         callback(null, `${filename}.${fileExtension}`);
       }
     });
