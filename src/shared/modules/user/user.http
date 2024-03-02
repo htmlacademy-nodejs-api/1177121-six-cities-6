@@ -25,3 +25,17 @@ Content-Type: application/json
 }
 
 ###
+
+## Отправить изображение
+
+POST http://localhost:5000/users/65d9e02a6f455dd6f7039b26/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="screen.png"
+Content-Type: image/png
+
+< /Users/iMusin/Desktop/learning-frontend/html-academy/node-js/1177121-six-cities-6/markup/img/avatar-angelina.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
