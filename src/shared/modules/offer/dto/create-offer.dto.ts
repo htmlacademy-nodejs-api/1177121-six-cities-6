@@ -92,8 +92,12 @@ export class CreateOfferDto {
   public guestsCount: number;
 
   @IsInt({ message: OfferValidationMessage.price.invalidFormat })
-  @Min(100, { message: OfferValidationMessage.price.minValue })
-  @Max(100000, { message: OfferValidationMessage.price.maxValue })
+  @Min(offerConstants.Price.Min, {
+    message: OfferValidationMessage.price.minValue,
+  })
+  @Max(offerConstants.Price.Max, {
+    message: OfferValidationMessage.price.maxValue,
+  })
   public price: number;
 
   @IsArray({ message: OfferValidationMessage.amenities.invalid })
