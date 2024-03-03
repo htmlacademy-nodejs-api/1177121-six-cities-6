@@ -110,6 +110,6 @@ export class CreateOfferDto {
   @IsMongoId({ message: OfferValidationMessage.userId.invalidId })
   public userId: string;
 
-  @ValidateNested()
+  @ValidateNested({ message: OfferValidationMessage.location.invalid })
   public location: TLocation;
 }

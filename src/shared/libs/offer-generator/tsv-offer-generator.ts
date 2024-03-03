@@ -37,14 +37,6 @@ export class TSVOfferGenerator implements IOfferGenerator {
       offerConstants.BooleanString.True,
       offerConstants.BooleanString.False,
     ]);
-    const isFavorite = getRandomItem([
-      offerConstants.BooleanString.True,
-      offerConstants.BooleanString.False,
-    ]);
-    const rating = generateRandomValue(
-      offerConstants.Rating.Min,
-      offerConstants.Rating.Max
-    );
     const houseType = getRandomItem(Object.values(EHouseType));
     const roomsCount = generateRandomValue(
       offerConstants.RoomCount.Min,
@@ -78,8 +70,6 @@ export class TSVOfferGenerator implements IOfferGenerator {
       preview,
       photos,
       isPremium,
-      isFavorite,
-      rating,
       houseType,
       roomsCount,
       guestsCount,

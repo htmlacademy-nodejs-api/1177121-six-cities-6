@@ -54,14 +54,11 @@ export class ImportCommand implements ICommand {
       preview: offer.preview,
       photos: offer.photos,
       isPremium: offer.isPremium,
-      isFavorite: offer.isFavorite,
-      rating: offer.rating,
       houseType: offer.houseType,
       roomsCount: offer.roomsCount,
       guestsCount: offer.guestsCount,
       price: offer.price,
       amenities: offer.amenities,
-      commentCount: offer.commentCount,
       location: offer.location
     });
   }
