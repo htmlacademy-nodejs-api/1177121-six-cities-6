@@ -6,6 +6,7 @@ import {
   DocumentExistsMiddleware,
   EHttpMethod,
   HttpError,
+  PrivateRouteMiddleware,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
@@ -43,13 +44,17 @@ export class OfferController extends BaseController {
       path: '/',
       method: EHttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)],
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDto)
+      ],
     });
     this.addRoute({
       path: '/:offerId',
       method: EHttpMethod.Patch,
       handler: this.update,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
@@ -60,6 +65,7 @@ export class OfferController extends BaseController {
       method: EHttpMethod.Delete,
       handler: this.delete,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
@@ -75,12 +81,18 @@ export class OfferController extends BaseController {
     });
     this.addRoute({ path: '/', method: EHttpMethod.Get, handler: this.index });
     this.addRoute({ path: '/premium/:city', method: EHttpMethod.Get, handler: this.getPremium });
-    this.addRoute({ path: '/favorites', method: EHttpMethod.Get, handler: this.getFavorites });
+    this.addRoute({
+      path: '/favorites',
+      method: EHttpMethod.Get,
+      handler: this.getFavorites,
+      middlewares: [new PrivateRouteMiddleware()],
+    });
     this.addRoute({
       path: '/:offerId/favorite',
       method: EHttpMethod.Get,
       handler: this.updateFavorite,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
