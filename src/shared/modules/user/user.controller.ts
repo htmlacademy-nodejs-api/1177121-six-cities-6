@@ -13,11 +13,12 @@ import { ILogger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { IConfig, TRestSchema } from '../../libs/config/index.js';
 import { fillDTO } from '../../helpers/index.js';
+import { Env } from '../../constants/index.js';
+import { IAuthService } from '../auth/index.js';
 import { TCreateUserRequest, TLoginUserRequest } from './types/index.js';
 import { LoggedUserRdo, UserRdo } from './rdo/index.js';
 import { CreateUserDto, LoginUserDto } from './dto/index.js';
 import { IUserService } from './user-service.interface.js';
-import { IAuthService } from '../auth/index.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -58,7 +59,7 @@ export class UserController extends BaseController {
       handler: this.uploadAvatar,
       middlewares: [
         new ValidateObjectIdMiddleware('userId'),
-        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
+        new UploadFileMiddleware(this.configService.get(Env.UploadDirectory), 'avatar'),
       ],
     });
   }
@@ -106,12 +107,21 @@ export class UserController extends BaseController {
     );
   }
 
-  public async checkAuthToken(): Promise<void> {
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController'
-    );
+  public async checkAuthToken(
+    { tokenPayload: { email } }: Request,
+    res: Response
+  ): Promise<void> {
+    const foundedUser = await this.userService.findByEmail(email);
+
+    if (!foundedUser) {
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        'Unauthorized',
+        'UserController'
+      );
+    }
+
+    this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 
   public async uploadAvatar(req: Request, res: Response) {

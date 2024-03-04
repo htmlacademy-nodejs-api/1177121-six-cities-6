@@ -5,4 +5,5 @@ export const IMAGE_REGEX = /\.(jpg|png)(\?.*)?$/i;
 
 export const Env = {
   JwtSecret: 'JWT_SECRET',
+  UploadDirectory: 'UPLOAD_DIRECTORY',
 } as const;

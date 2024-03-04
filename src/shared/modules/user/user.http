@@ -39,3 +39,10 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
+
+## Проверка статуса пользователя
+
+GET http://localhost:5000/users/login/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5pZ2h0bWFyZS1vbkBlbG0uc3RyIiwibmFtZSI6IkZyZWRkeSBLcnVlZ2VyIiwiaWQiOiI2NWU2MjZkN2U5YTk2YjBhOWQxMmY0Y2UiLCJpYXQiOjE3MDk1ODIzMjUsImV4cCI6MTcwOTc1NTEyNX0.bySXNdQDxFJXxFD0C50O59hf0ozyLTwjb9Khc44Nmek
+
+###
