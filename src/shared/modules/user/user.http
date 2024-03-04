@@ -9,7 +9,7 @@ Content-Type: application/json
   "email": "nightmare-on@elm.str",
   "avatar": "freddy-face.jpg",
   "userType": "Standard",
-  "password": "12FreddysCFU"
+  "password": "12FreddysC4U"
 }
 
 ###
@@ -21,7 +21,7 @@ Content-Type: application/json
 
 {
   "email": "nightmare-on@elm.str",
-  "password": "12FreddysComingForYou"
+  "password": "12FreddysC4U"
 }
 
 ###

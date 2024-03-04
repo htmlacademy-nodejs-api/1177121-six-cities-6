@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { EAmenity, ECity, EHouseType } from '../../../types/index.js';
-import { UserRdo } from '../../user/rdo/user.rdo.js';
+import { UserRdo } from '../../user/index.js';
 
 class LocationRdo {
   @Expose()

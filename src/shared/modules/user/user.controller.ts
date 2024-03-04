@@ -14,19 +14,21 @@ import { Component } from '../../types/index.js';
 import { IConfig, TRestSchema } from '../../libs/config/index.js';
 import { fillDTO } from '../../helpers/index.js';
 import { TCreateUserRequest, TLoginUserRequest } from './types/index.js';
-import { IUserService } from './user-service.interface.js';
-import { UserRdo } from './rdo/user.rdo.js';
+import { LoggedUserRdo, UserRdo } from './rdo/index.js';
 import { CreateUserDto, LoginUserDto } from './dto/index.js';
+import { IUserService } from './user-service.interface.js';
+import { IAuthService } from '../auth/index.js';
 
 @injectable()
 export class UserController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: ILogger,
     @inject(Component.UserService) private readonly userService: IUserService,
-    @inject(Component.Config) private readonly configService: IConfig<TRestSchema>
+    @inject(Component.Config) private readonly configService: IConfig<TRestSchema>,
+    @inject(Component.AuthService) private readonly authService: IAuthService,
   ) {
     super(logger);
-    this.logger.info('Register routes for UserController...');
+    this.logger.info('Register routes for UserController…');
 
     this.addRoute({
       path: '/register',
@@ -84,23 +86,16 @@ export class UserController extends BaseController {
 
   public async login(
     { body }: TLoginUserRequest,
-    _res: Response
+    res: Response
   ): Promise<void> {
-    const existsUser = await this.userService.findByEmail(body.email);
+    const user = await this.authService.verify(body);
+    const token = await this.authService.authenticate(user);
+    const responseData = fillDTO(LoggedUserRdo, {
+      email: user.email,
+      token,
+    });
 
-    if (!existsUser) {
-      throw new HttpError(
-        StatusCodes.UNAUTHORIZED,
-        `User with email ${body.email} not found.`,
-        'UserController'
-      );
-    }
-
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController'
-    );
+    this.ok(res, responseData);
   }
 
   public async logout(): Promise<void> {

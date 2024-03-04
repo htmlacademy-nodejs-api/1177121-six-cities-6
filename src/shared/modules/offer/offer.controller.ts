@@ -38,7 +38,7 @@ export class OfferController extends BaseController {
   ) {
     super(logger);
 
-    this.logger.info('Register router for OfferController...');
+    this.logger.info('Register router for OfferController…');
     this.addRoute({
       path: '/',
       method: EHttpMethod.Post,
