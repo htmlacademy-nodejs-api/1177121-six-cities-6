@@ -2,9 +2,9 @@ import { injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
-import { IController } from './controller.interface.js';
 import { ILogger } from '../../logger/index.js';
 import { IRoute } from '../types/route.interface.js';
+import { IController } from './controller.interface.js';
 
 const DEFAULT_CONTENT_TYPE = 'application/json';
 
