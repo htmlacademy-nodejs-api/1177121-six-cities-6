@@ -3,12 +3,12 @@
 
 POST  http://localhost:5000/comments/ HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5pZ2h0bWFyZS1vbkBlbG0uc3RyIiwibmFtZSI6IkZyZWRkeSBLcnVlZ2VyIiwiaWQiOiI2NWU2MjZkN2U5YTk2YjBhOWQxMmY0Y2UiLCJpYXQiOjE3MDk1ODIzMjUsImV4cCI6MTcwOTc1NTEyNX0.bySXNdQDxFJXxFD0C50O59hf0ozyLTwjb9Khc44Nmek
 
 {
   "text": "Раз, два, Фредди заберет тебя",
   "rating": 5,
-  "offerId": "65e62762e9a96b0a9d12f4d0",
-  "userId": "65e626d7e9a96b0a9d12f4ce"
+  "offerId": "65e62762e9a96b0a9d12f4d0"
 }
 
 ###
