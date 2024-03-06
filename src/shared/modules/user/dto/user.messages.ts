@@ -10,7 +10,7 @@ export const UserMessages = {
     invalidFormat: 'Email must be a valid address',
   },
   avatar: {
-    matches: 'The image must match the format .jpg or .png',
+    matches: 'The image must match the format .jpg, .png or .svg',
   },
   userType: {
     invalid: `User type must be ${EUserType.Standard} or ${EUserType.Pro}`,

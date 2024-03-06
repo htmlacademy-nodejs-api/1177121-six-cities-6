@@ -1,3 +1,4 @@
+export * from './types/application-error.enum.js';
 export * from './controller/index.js';
 export * from './errors/index.js';
 export * from './exception-filter/index.js';

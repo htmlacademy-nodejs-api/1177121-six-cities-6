@@ -7,7 +7,7 @@ import {
 import { Types } from 'mongoose';
 import { EUserType, TUser } from '../../types/index.js';
 import { createSHA256 } from '../../helpers/index.js';
-import { IMAGE_REGEX, userConstants } from '../../constants/index.js';
+import { userConstants } from '../../constants/index.js';
 import { UserMessages } from './dto/user.messages.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -38,12 +38,11 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
   public email!: string;
 
   @prop({
+    type: String,
     required: false,
     trim: true,
-    match: [IMAGE_REGEX, UserMessages.avatar.matches],
-    default: userConstants.DEFAULT_AVATAR,
   })
-  public avatar!: string;
+  public avatar?: string;
 
   @prop({
     type: () => String,

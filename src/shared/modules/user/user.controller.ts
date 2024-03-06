@@ -13,7 +13,7 @@ import { ILogger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { IConfig, TRestSchema } from '../../libs/config/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { Env } from '../../constants/index.js';
+import { Env, userConstants } from '../../constants/index.js';
 import { IAuthService } from '../auth/index.js';
 import { TCreateUserRequest, TLoginUserRequest } from './types/index.js';
 import { LoggedUserRdo, UserRdo } from './rdo/index.js';
@@ -32,29 +32,29 @@ export class UserController extends BaseController {
     this.logger.info('Register routes for UserController…');
 
     this.addRoute({
-      path: '/register',
+      path: userConstants.Path.Register,
       method: EHttpMethod.Post,
       handler: this.create,
       middlewares: [new ValidateDtoMiddleware(CreateUserDto)],
     });
     this.addRoute({
-      path: '/login',
+      path: userConstants.Path.Login,
       method: EHttpMethod.Post,
       handler: this.login,
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)],
     });
     this.addRoute({
-      path: '/logout',
+      path: userConstants.Path.Logout,
       method: EHttpMethod.Post,
       handler: this.logout,
     });
     this.addRoute({
-      path: '/login',
+      path: userConstants.Path.Login,
       method: EHttpMethod.Get,
       handler: this.checkAuthToken,
     });
     this.addRoute({
-      path: '/:userId/avatar',
+      path: userConstants.Path.UserIdAvatar,
       method: EHttpMethod.Post,
       handler: this.uploadAvatar,
       middlewares: [
@@ -80,7 +80,7 @@ export class UserController extends BaseController {
 
     const result = await this.userService.create(
       body,
-      this.configService.get('SALT')
+      this.configService.get(Env.Salt)
     );
     this.created(res, fillDTO(UserRdo, result));
   }
