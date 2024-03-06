@@ -37,8 +37,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/user'
-        '400':
-          description: Не удается создать пользователя.
         '409':
           description: Пользователь с таким email уже существует.
 
@@ -62,8 +60,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/userToken'
-        '400':
-          description: Ошибка тела запроса.
         '401':
           description: Неверный адрес электронной почты или пароль.
 
@@ -171,8 +167,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/offer'
-        '400':
-          description: Ошибка создания нового предложения.
         "401":
           description: Пользователь не авторизован.
           content:
@@ -200,8 +194,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/offer'
-        "404":
-          description: Предложение с указанным идентификатором offerId не найдено.
+        "401":
+          description: Пользователь не авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authUserError'
 
     patch:
       tags:
@@ -236,16 +234,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/offer'
-        '400':
-          description: Ошибка обновления предложения.
         "401":
           description: Пользователь не авторизован.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/authUserError'
-        '404':
-          description: Ошибка обновления предложения.
 
     delete:
       tags:
@@ -359,8 +353,6 @@ paths:
       responses:
         '204':
           description: Успешное обновление статуса предложения
-        '400':
-          description: Ошибка обновления статуса предложения.
         "401":
           description: Пользователь не авторизован.
           content:
@@ -439,8 +431,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/comment'
-        "400":
-          description: Ошибка создания комментария.
         "401":
           description: Пользователь не авторизован.
           content:
