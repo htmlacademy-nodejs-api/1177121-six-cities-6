@@ -1,7 +1,9 @@
 import chalk from 'chalk';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
+import { ValidationError } from 'class-validator';
 import { TypeMessage } from '../constants/index.js';
 import { ECity } from '../types/index.js';
+import { TValidationErrorField } from '../libs/rest/index.js';
 
 export function generateRandomValue(
   min: number,
@@ -74,4 +76,11 @@ export function formatsObjectToString(obj: Record<string, string>) {
 
 export function getFullServerPath(host: string, port: number) {
   return `http://${host}:${port}`;
+}
+export function reduceValidationErrors(errors: ValidationError[]): TValidationErrorField[] {
+  return errors.map(({ property, value, constraints}) => ({
+    property,
+    value,
+    messages: constraints ? Object.values(constraints) : []
+  }));
 }
