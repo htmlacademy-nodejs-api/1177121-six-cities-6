@@ -117,32 +117,28 @@ export class OfferController extends BaseController {
   public async update({ body, params: { offerId } }: TUpdateOfferRequest, res: Response): Promise<void> {
     const updateOffer = this.offerService.updateById(offerId, body);
 
-    const responseData = fillDTO(OfferRdo, updateOffer);
-
-    this.ok(res, responseData);
+    this.ok(res, fillDTO(OfferRdo, updateOffer));
   }
 
   public async delete({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
-    const existsOffer = await this.offerService.deleteById(offerId);
+    const offer = await this.offerService.deleteById(offerId);
 
     await this.commentService.deleteByOfferId(offerId);
 
-    this.noContent(res, existsOffer);
+    this.noContent(res, offer);
   }
 
   public async index({ query: { limit } }: TOfferRequest, res: Response): Promise<void> {
     const count = getNumberOrUndefined(limit);
-
     const offers = await this.offerService.find(count);
-    const responseData = fillDTO(OfferRdo, offers);
 
-    this.ok(res, responseData);
+    this.ok(res, fillDTO(OfferRdo, offers));
   }
 
   public async show({ params: { offerId } }: Request<TParamOfferId>, res: Response): Promise<void> {
-    const existsOffer = await this.offerService.findById(offerId);
+    const offer = await this.offerService.findById(offerId);
 
-    this.ok(res, fillDTO(OfferRdo, existsOffer));
+    this.ok(res, fillDTO(OfferRdo, offer));
   }
 
   public async getPremium({ params: { city } }: Request<TParamCity>, res: Response): Promise<void> {

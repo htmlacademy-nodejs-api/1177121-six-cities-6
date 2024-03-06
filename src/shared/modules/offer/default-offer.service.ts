@@ -1,6 +1,5 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
-import { Types } from 'mongoose';
 import { Component, SortType } from '../../types/index.js';
 import { offerConstants } from '../../constants/index.js';
 import { ILogger } from '../../libs/logger/index.js';
@@ -8,7 +7,6 @@ import { IOfferService } from './offer-service.interface.js';
 import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
-
 @injectable()
 export class DefaultOfferService implements IOfferService {
   constructor(
@@ -22,25 +20,6 @@ export class DefaultOfferService implements IOfferService {
       $addFields: {
         id: '$_id',
       },
-    },
-  ];
-
-  private usersLookup = [
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'userId',
-        foreignField: '_id',
-        as: 'users',
-      },
-    },
-    {
-      $addFields: {
-        author: { $arrayElemAt: ['$users', 0] },
-      },
-    },
-    {
-      $unset: ['users'],
     },
   ];
 
@@ -88,31 +67,22 @@ export class DefaultOfferService implements IOfferService {
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
     const limit = count ?? offerConstants.OfferCount.Default;
 
-    return this.offerModel
+    const offers = await this.offerModel
       .aggregate([
         ...this.addFieldId,
-        ...this.usersLookup,
         ...this.commentsLookup,
         { $limit: limit },
         { $sort: { createdAt: SortType.Down } },
       ])
       .exec();
+
+    return this.offerModel.populate(offers, { path: 'userId' });
   }
 
   public async findById(
     offerId: string
   ): Promise<DocumentType<OfferEntity> | null> {
-    const offer = await this.offerModel
-      .aggregate<DocumentType<OfferEntity>>([
-        {
-          $match: { _id: new Types.ObjectId(offerId) },
-        },
-        ...this.addFieldId,
-        ...this.commentsLookup,
-        ...this.usersLookup,
-      ])
-      .exec()
-      .then(([result]) => result ?? null);
+    const offer = await this.offerModel.findById(offerId).populate(['userId']);
 
     return offer;
   }
@@ -127,7 +97,6 @@ export class DefaultOfferService implements IOfferService {
         },
         ...this.addFieldId,
         ...this.commentsLookup,
-        ...this.usersLookup,
         { $limit: offerConstants.OfferCount.Premium },
         { $sort: { createdAt: SortType.Down } },
       ])
@@ -135,7 +104,7 @@ export class DefaultOfferService implements IOfferService {
   }
 
   public async findFavorites(): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
+    return await this.offerModel
       .find({ favorites: true })
       .sort({ createdAt: SortType.Down })
       .populate(['userId'])
