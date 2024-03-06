@@ -4,6 +4,7 @@ import {
   modelOptions,
   prop,
 } from '@typegoose/typegoose';
+import { Types } from 'mongoose';
 import { EUserType, TUser } from '../../types/index.js';
 import { createSHA256 } from '../../helpers/index.js';
 import { IMAGE_REGEX, userConstants } from '../../constants/index.js';
@@ -54,6 +55,12 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
 
   @prop({ required: true, default: '' })
   private password?: string;
+
+  @prop({
+    type: Types.ObjectId,
+    default: [],
+  })
+  public favoriteOffers: Types.Array<Types.ObjectId>;
 
   constructor(userData: TUser) {
     super();
