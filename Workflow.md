@@ -13,8 +13,6 @@ npm install
 Переменные окружения:
 
 ```bash
-PORT=number - порт для входящих подключений к серверу
-SALT=string - соль для хеширования пароля
 DB_HOST=string - адрес для подключения к БД
 DB_USER=string - имя пользователя для подключения к БД
 DB_PASSWORD=string - пароль для подключения к БД
@@ -23,6 +21,8 @@ DB_NAME=string - имя БД
 UPLOAD_DIRECTORY=string - директория для загрузки статики
 STATIC_DIRECTORY_PATH=string - директория для хранения статики
 JWT_SECRET=string - соль для создания токена
+PORT=number - порт для входящих подключений к серверу
+SALT=string - соль для хеширования пароля
 HOST=string - хост на котором запущен сервер
 ```
 
