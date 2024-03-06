@@ -84,3 +84,15 @@ export const Cities = {
     longitude: 6.776314,
   },
 } as const;
+
+export const PathOffer = {
+  Create: '/',
+  Update: '/:offerId',
+  Delete: '/:offerId',
+  Show: '/:offerId',
+  Index: '/',
+  Premium: '/premium/:city',
+  Favorites: '/favorites',
+  toggleFavorites: '/:offerId/favorites',
+  Comments: '/:offerId/comments',
+} as const;

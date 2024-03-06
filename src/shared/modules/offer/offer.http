@@ -24,7 +24,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5pZ2h0bWFyZS1vbkBlbG0uc
     "photo-6.jpg"
   ],
   "isPremium": true,
-  "isFavorite": true,
+  "isFavorite": false,
   "houseType": "House",
   "roomsCount": 3,
   "guestsCount": 3,

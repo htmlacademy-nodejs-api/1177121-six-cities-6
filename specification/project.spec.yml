@@ -283,7 +283,7 @@ paths:
       summary: Получение списка премиальных предложений для города
       description: Получает список премиальных предложений для города.
       parameters:
-        - in: query
+        - in: path
           name: city
           required: true
           schema:
@@ -332,8 +332,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/authUserError'
 
-  /offers/{offerId}/favorite:
-    put:
+  /offers/{offerId}/favorites:
+    patch:
       tags:
         - offers
       summary: Добавление или удаление предложения в/из избранное
@@ -368,7 +368,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/authUserError'
 
-  /comments/{offerId}:
+  /offers/{offerId}/comments:
     get:
       tags:
         - comments
