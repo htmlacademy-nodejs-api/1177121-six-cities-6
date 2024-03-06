@@ -31,8 +31,16 @@ export class DefaultOfferService implements IOfferService {
         from: 'users',
         localField: 'userId',
         foreignField: '_id',
-        as: 'author',
+        as: 'users',
       },
+    },
+    {
+      $addFields: {
+        author: { $arrayElemAt: ['$users', 0] },
+      },
+    },
+    {
+      $unset: ['users'],
     },
   ];
 
@@ -61,17 +69,20 @@ export class DefaultOfferService implements IOfferService {
     return result;
   }
 
-  public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
+  public async updateById(
+    offerId: string,
+    dto: UpdateOfferDto
+  ): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findByIdAndUpdate(offerId, dto, { new: true })
       .populate(['userId'])
       .exec();
   }
 
-  public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel
-      .findByIdAndDelete(offerId)
-      .exec();
+  public async deleteById(
+    offerId: string
+  ): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel.findByIdAndDelete(offerId).exec();
   }
 
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
@@ -83,14 +94,16 @@ export class DefaultOfferService implements IOfferService {
         ...this.usersLookup,
         ...this.commentsLookup,
         { $limit: limit },
-        {$sort: { createdAt: SortType.Down }},
+        { $sort: { createdAt: SortType.Down } },
       ])
       .exec();
   }
 
-  public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel
-      .aggregate([
+  public async findById(
+    offerId: string
+  ): Promise<DocumentType<OfferEntity> | null> {
+    const offer = await this.offerModel
+      .aggregate<DocumentType<OfferEntity>>([
         {
           $match: { _id: new Types.ObjectId(offerId) },
         },
@@ -100,6 +113,8 @@ export class DefaultOfferService implements IOfferService {
       ])
       .exec()
       .then(([result]) => result ?? null);
+
+    return offer;
   }
 
   public async findPremium(city: string): Promise<DocumentType<OfferEntity>[]> {
@@ -114,7 +129,7 @@ export class DefaultOfferService implements IOfferService {
         ...this.commentsLookup,
         ...this.usersLookup,
         { $limit: offerConstants.OfferCount.Premium },
-        {$sort: { createdAt: SortType.Down }},
+        { $sort: { createdAt: SortType.Down } },
       ])
       .exec();
   }
@@ -131,7 +146,7 @@ export class DefaultOfferService implements IOfferService {
     offerId: string
   ): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
-      .findByIdAndUpdate(offerId, { $inc: { commentCount: 1, }, })
+      .findByIdAndUpdate(offerId, { $inc: { commentCount: 1 } })
       .exec();
   }
 

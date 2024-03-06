@@ -59,7 +59,7 @@ export class OfferRdo {
   @Expose()
   public commentCount: number;
 
-  @Expose()
+  @Expose({ name: 'userId' })
   @Type(() => UserRdo)
   public author: UserRdo;
 

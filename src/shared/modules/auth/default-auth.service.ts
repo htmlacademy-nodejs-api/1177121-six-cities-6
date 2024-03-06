@@ -7,7 +7,7 @@ import { IConfig, TRestSchema } from '../../libs/config/index.js';
 import { Env, UNICODE } from '../../constants/index.js';
 import { LoginUserDto, UserEntity, IUserService } from '../user/index.js';
 import { IAuthService } from './auth-service.interface.js';
-import { TTokenPayload } from './types/TokenPayload.js';
+import { TTokenPayload } from './types/token-payload.js';
 import {
   UserNotFoundException,
   UserPasswordIncorrectException,
