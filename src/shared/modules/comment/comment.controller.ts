@@ -6,6 +6,7 @@ import {
   ValidateObjectIdMiddleware,
   ValidateDtoMiddleware,
   DocumentExistsMiddleware,
+  PrivateRouteMiddleware,
 } from '../../libs/rest/index.js';
 import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/logger/index.js';
@@ -30,7 +31,10 @@ export class CommentController extends BaseController {
       path: '/',
       method: EHttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateCommentDto)],
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateCommentDto),
+      ],
     });
     this.addRoute({
       path: '/offerId',
@@ -43,16 +47,20 @@ export class CommentController extends BaseController {
     });
   }
 
-  public async create({ body } : Request, res: Response): Promise<void> {
+  public async create({ body, tokenPayload } : Request, res: Response): Promise<void> {
     const offerId = body.offerId;
-    const comment = await this.commentService.create(body);
+    const comment = await this.commentService.create({
+      ...body,
+      userId: tokenPayload.id,
+    });
 
     await this.offerService.incCommentCount(offerId);
     this.created(res, fillDTO(CommentRdo, comment));
   }
 
   public async findByOfferId(
-    { params: { offerId} , query: { limit } }: offerTypes.TOfferRequest, res: Response
+    { params: { offerId} , query: { limit } }: offerTypes.TOfferRequest,
+    res: Response
   ): Promise<void> {
     const count = getNumberOrUndefined(limit);
     const comments = await this.commentService.findByOfferId(offerId, count);

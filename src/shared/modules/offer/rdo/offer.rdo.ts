@@ -1,11 +1,14 @@
 import { Expose, Type } from 'class-transformer';
-import {
-  EAmenity,
-  ECity,
-  EHouseType,
-  TLocation,
-} from '../../../types/index.js';
-import { UserRdo } from '../../user/rdo/user.rdo.js';
+import { EAmenity, ECity, EHouseType } from '../../../types/index.js';
+import { UserRdo } from '../../user/index.js';
+
+class LocationRdo {
+  @Expose()
+  public latitude: number;
+
+  @Expose()
+  public longitude: number;
+}
 
 export class OfferRdo {
   @Expose()
@@ -56,10 +59,11 @@ export class OfferRdo {
   @Expose()
   public commentCount: number;
 
-  @Expose()
+  @Expose({ name: 'userId' })
   @Type(() => UserRdo)
   public author: UserRdo;
 
   @Expose()
-  public location: TLocation;
+  @Type(() => LocationRdo)
+  public location: LocationRdo;
 }

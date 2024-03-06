@@ -12,14 +12,11 @@ export type TOffer = {
   preview: string;
   photos: string[];
   isPremium: boolean;
-  isFavorite: boolean;
-  rating: number;
   houseType: EHouseType;
   roomsCount: number;
   guestsCount: number;
   price: number;
   amenities: EAmenity[];
   author: TUser;
-  commentCount: number,
   location: TLocation;
 };

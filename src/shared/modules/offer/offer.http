@@ -8,6 +8,7 @@ Content-Type: application/json
 ## Создание нового предложения по аренде
 POST http://localhost:5000/offers/ HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5pZ2h0bWFyZS1vbkBlbG0uc3RyIiwibmFtZSI6IkZyZWRkeSBLcnVlZ2VyIiwiaWQiOiI2NWU2MjZkN2U5YTk2YjBhOWQxMmY0Y2UiLCJpYXQiOjE3MDk1ODIzMjUsImV4cCI6MTcwOTc1NTEyNX0.bySXNdQDxFJXxFD0C50O59hf0ozyLTwjb9Khc44Nmek
 
 {
   "title": "Dream Home Awaits: Find Your Perfect House with Us",
@@ -33,7 +34,7 @@ Content-Type: application/json
     "Air conditioning",
     "Laptop friendly workspace"
   ],
-  "userId": "65d9e02a6f455dd6f7039b26",
+  "userId": "65e626d7e9a96b0a9d12f4ce",
   "location": {
     "latitude": 52.370216,
     "longitude": 4.895168
@@ -44,7 +45,7 @@ Content-Type: application/json
 
 ## Получение детальной информации по предложению
 
-GET  http://localhost:5000/offers/65d516d115a65ef93e3fe828/ HTTP/1.1
+GET  http://localhost:5000/offers/65e62762e9a96b0a9d12f4d0/ HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -53,13 +54,15 @@ Content-Type: application/json
 
 DELETE  http://localhost:5000/offers/65da7cb9f0f9fa631f45e591/ HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5pZ2h0bWFyZS1vbkBlbG0uc3RyIiwibmFtZSI6IkZyZWRkeSBLcnVlZ2VyIiwiaWQiOiI2NWU2MjZkN2U5YTk2YjBhOWQxMmY0Y2UiLCJpYXQiOjE3MDk1ODIzMjUsImV4cCI6MTcwOTc1NTEyNX0.bySXNdQDxFJXxFD0C50O59hf0ozyLTwjb9Khc44Nmek
 
 ###
 
 ## Обновление предложения
 
-PATCH  http://localhost:5000/offers/65da7cb9f0f9fa631f45e591/ HTTP/1.1
+PATCH  http://localhost:5000/offers/65e62762e9a96b0a9d12f4d0/ HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5pZ2h0bWFyZS1vbkBlbG0uc3RyIiwibmFtZSI6IkZyZWRkeSBLcnVlZ2VyIiwiaWQiOiI2NWU2MjZkN2U5YTk2YjBhOWQxMmY0Y2UiLCJpYXQiOjE3MDk1ODIzMjUsImV4cCI6MTcwOTc1NTEyNX0.bySXNdQDxFJXxFD0C50O59hf0ozyLTwjb9Khc44Nmek
 
 {
   "title": "A luxurious house to sleep in",
@@ -76,6 +79,6 @@ Content-Type: application/json
 ###
 
 ## Список комментариев к объявлению
-GET http://localhost:5000/offers/65da7d3cf0f9fa631f45e593/comments HTTP/1.1
+GET http://localhost:5000/offers/65e62762e9a96b0a9d12f4d0/comments HTTP/1.1
 
 ###

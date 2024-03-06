@@ -16,8 +16,6 @@ export const createOffer = (offerData: string): TOffer => {
     preview,
     photos,
     isPremium,
-    isFavorite,
-    rating,
     houseType,
     roomsCount,
     guestsCount,
@@ -27,7 +25,6 @@ export const createOffer = (offerData: string): TOffer => {
     email,
     avatar,
     userType,
-    commentCount,
     latitude,
     longitude,
   ] = offerData.replace('\n', '').split('\t');
@@ -40,8 +37,6 @@ export const createOffer = (offerData: string): TOffer => {
     preview,
     photos: photos.split(';'),
     isPremium: JSON.parse(isPremium),
-    isFavorite: JSON.parse(isFavorite),
-    rating: Number.parseFloat(rating),
     houseType: EHouseType[houseType as keyof typeof EHouseType],
     roomsCount: Number.parseInt(roomsCount, DECIMAL_SYSTEM),
     guestsCount: Number.parseInt(guestsCount, DECIMAL_SYSTEM),
@@ -53,7 +48,6 @@ export const createOffer = (offerData: string): TOffer => {
       avatar,
       userType: EUserType[userType as keyof typeof EUserType],
     },
-    commentCount: Number.parseInt(commentCount, DECIMAL_SYSTEM),
     location: {
       latitude: Number.parseFloat(latitude),
       longitude: Number.parseFloat(longitude),

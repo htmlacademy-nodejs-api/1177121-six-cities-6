@@ -50,8 +50,7 @@ export const OfferValidationMessage = {
     invalid: `Field amenities must be an array and type must be ${formatsObjectToString(EAmenity)}`,
   },
   location: {
-    invalidLatitude: 'Latitude must be a valid number',
-    invalidLongitude: 'Longitude must be a valid number',
+    invalid: 'Latitude and Longitude must be a valid number',
   },
   userId: {
     invalidId: 'Field userId must be a valid id',

@@ -129,6 +129,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
   })
+  @prop({ required: true})
   public location!: TLocation;
 }
 
