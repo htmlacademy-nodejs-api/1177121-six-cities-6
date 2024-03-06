@@ -3,7 +3,7 @@ import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { ValidationError } from 'class-validator';
 import { TypeMessage } from '../constants/index.js';
 import { ECity } from '../types/index.js';
-import { TValidationErrorField } from '../libs/rest/index.js';
+import { ApplicationError, TValidationErrorField } from '../libs/rest/index.js';
 
 export function generateRandomValue(
   min: number,
@@ -37,10 +37,8 @@ export function fillDTO<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
   });
 }
 
-export function createErrorObject(message: string) {
-  return {
-    error: message,
-  };
+export function createErrorObject(errorType: ApplicationError, error: string, details: TValidationErrorField[] = []) {
+  return {errorType, error, details};
 }
 
 export function checkString(data: unknown) {
