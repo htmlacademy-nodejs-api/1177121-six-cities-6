@@ -71,3 +71,7 @@ export function getNumberOrUndefined(data: unknown) {
 export function formatsObjectToString(obj: Record<string, string>) {
   return Object.values(obj).join(', ');
 }
+
+export function getFullServerPath(host: string, port: number) {
+  return `http://${host}:${port}`;
+}

@@ -45,23 +45,23 @@ export class OfferController extends BaseController {
 
     this.logger.info('Register router for OfferController…');
     this.addRoute({
-      path: offerConstants.PathOffer.Index,
+      path: offerConstants.Path.Index,
       method: EHttpMethod.Get,
       handler: this.index,
     });
     this.addRoute({
-      path: offerConstants.PathOffer.Premium,
+      path: offerConstants.Path.Premium,
       method: EHttpMethod.Get,
       handler: this.showPremium,
     });
     this.addRoute({
-      path: offerConstants.PathOffer.Favorites,
+      path: offerConstants.Path.Favorites,
       method: EHttpMethod.Get,
       handler: this.showFavorites,
       middlewares: [new PrivateRouteMiddleware()],
     });
     this.addRoute({
-      path: offerConstants.PathOffer.Create,
+      path: offerConstants.Path.Create,
       method: EHttpMethod.Post,
       handler: this.create,
       middlewares: [
@@ -70,7 +70,7 @@ export class OfferController extends BaseController {
       ],
     });
     this.addRoute({
-      path: offerConstants.PathOffer.Update,
+      path: offerConstants.Path.Update,
       method: EHttpMethod.Patch,
       handler: this.update,
       middlewares: [
@@ -81,7 +81,7 @@ export class OfferController extends BaseController {
       ],
     });
     this.addRoute({
-      path: offerConstants.PathOffer.Delete,
+      path: offerConstants.Path.Delete,
       method: EHttpMethod.Delete,
       handler: this.delete,
       middlewares: [
@@ -91,7 +91,7 @@ export class OfferController extends BaseController {
       ],
     });
     this.addRoute({
-      path: offerConstants.PathOffer.toggleFavorites,
+      path: offerConstants.Path.toggleFavorites,
       method: EHttpMethod.Patch,
       handler: this.updateFavorite,
       middlewares: [
@@ -101,7 +101,7 @@ export class OfferController extends BaseController {
       ],
     });
     this.addRoute({
-      path: offerConstants.PathOffer.Show,
+      path: offerConstants.Path.Show,
       method: EHttpMethod.Get,
       handler: this.show,
       middlewares: [
@@ -110,7 +110,7 @@ export class OfferController extends BaseController {
       ],
     });
     this.addRoute({
-      path: offerConstants.PathOffer.Comments,
+      path: offerConstants.Path.Comments,
       method: EHttpMethod.Get,
       handler: this.showComments,
       middlewares: [

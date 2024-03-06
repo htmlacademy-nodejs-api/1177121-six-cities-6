@@ -47,7 +47,7 @@ export class DefaultAuthService implements IAuthService {
       throw new UserNotFoundException();
     }
 
-    if (!user.verifyPassword(dto.password, this.config.get('SALT'))) {
+    if (!user.verifyPassword(dto.password, this.config.get(Env.Salt))) {
       this.logger.warn(`Incorrect password for ${dto.email}`);
       throw new UserPasswordIncorrectException();
     }

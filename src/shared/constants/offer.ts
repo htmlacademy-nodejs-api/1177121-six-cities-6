@@ -85,7 +85,7 @@ export const Cities = {
   },
 } as const;
 
-export const PathOffer = {
+export const Path = {
   Create: '/',
   Update: '/:offerId',
   Delete: '/:offerId',
