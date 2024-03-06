@@ -1,13 +1,11 @@
 import {
   IsEmail,
   IsEnum,
-  IsOptional,
   IsString,
   Length,
-  Matches,
 } from 'class-validator';
 import { EUserType } from '../../../types/index.js';
-import { IMAGE_REGEX, userConstants } from '../../../constants/index.js';
+import { userConstants } from '../../../constants/index.js';
 import { UserMessages } from './user.messages.js';
 
 export class CreateUserDto {
@@ -19,12 +17,6 @@ export class CreateUserDto {
 
   @IsEmail({}, { message: UserMessages.email.invalidFormat })
   public email: string;
-
-  @IsOptional()
-  @Matches(IMAGE_REGEX, {
-    message: UserMessages.avatar.matches,
-  })
-  public avatar: string;
 
   @IsEnum(EUserType, {
     message: UserMessages.userType.invalid,
