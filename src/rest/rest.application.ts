@@ -12,7 +12,7 @@ import {
   ParseTokenMiddleware,
 } from '../shared/libs/rest/index.js';
 import { AppRoutes, Env } from '../shared/constants/index.js';
-import { StaticPath } from './rest.constant.js';
+import { FilePath } from './rest.constant.js';
 
 
 @injectable()
@@ -62,11 +62,11 @@ export class RestApplication {
 
     this.server.use(express.json());
     this.server.use(
-      StaticPath.Upload,
+      FilePath.Upload,
       express.static(this.config.get(Env.UploadDirectory))
     );
     this.server.use(
-      StaticPath.Static,
+      FilePath.Static,
       express.static(this.config.get(Env.StaticDirectory))
     );
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));

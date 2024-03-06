@@ -22,8 +22,3 @@ export const AppRoutes = {
   Offers: 'offers',
   Comments: 'comments',
 } as const;
-
-export const TypeJS = {
-  String: 'string',
-  Object: 'object',
-} as const;

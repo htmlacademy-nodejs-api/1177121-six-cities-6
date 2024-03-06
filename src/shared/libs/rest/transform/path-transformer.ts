@@ -3,15 +3,15 @@ import {
   DEFAULT_STATIC_IMAGES,
   STATIC_RESOURCE_FIELDS,
 } from './path-transformer.constant.js';
-import { StaticPath } from '../../../../rest/index.js';
-import { TypeJS } from '../../../constants/index.js';
+import { FilePath } from '../../../../rest/index.js';
+import { Env } from '../../../constants/index.js';
 import { getFullServerPath } from '../../../helpers/index.js';
 import { Component } from '../../../types/index.js';
 import { ILogger } from '../../logger/index.js';
 import { IConfig, TRestSchema } from '../../config/index.js';
 
 function isObject(value: unknown): value is Record<string, object> {
-  return typeof value === TypeJS.Object && value !== null;
+  return typeof value === 'object' && value !== null;
 }
 
 @injectable()
@@ -33,6 +33,7 @@ export class PathTransformer {
 
   public execute(data: Record<string, unknown>): Record<string, unknown> {
     const stack = [data];
+
     while (stack.length > 0) {
       const current = stack.pop();
 
@@ -45,13 +46,14 @@ export class PathTransformer {
             continue;
           }
 
-          if (this.isStaticProperty(key) && typeof value === TypeJS.String) {
-            const staticPath = StaticPath.Static;
-            const uploadPath = StaticPath.Upload;
-            const serverHost = this.config.get('HOST');
-            const serverPort = this.config.get('PORT');
+          if (this.isStaticProperty(key) && typeof value === 'string') {
+            const serverHost = this.config.get(Env.Host);
+            const serverPort = this.config.get(Env.Port);
 
-            const rootPath = this.hasDefaultImage(value) ? staticPath : uploadPath;
+            const rootPath = this.hasDefaultImage(value)
+              ? FilePath.Static
+              : FilePath.Upload;
+
             current[key] = `${getFullServerPath(serverHost, serverPort)}${rootPath}/${value}`;
           }
         }
