@@ -207,7 +207,6 @@ export class OfferController extends BaseController {
     }: Request<TParamOfferId, TRequestBody, { isFavorite: string }>,
     res: Response
   ): Promise<void> {
-    console.log('body :>> ', body);
     const isFavorite: boolean = JSON.parse(body.isFavorite);
     const userId = id;
 
