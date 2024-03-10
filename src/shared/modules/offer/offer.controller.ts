@@ -10,6 +10,7 @@ import {
   TRequestBody,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
+  ValidateUserMiddleware,
 } from '../../libs/rest/index.js';
 import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/logger/logger.interface.js';
@@ -29,7 +30,7 @@ import {
   TParamCity,
 } from './types/index.js';
 import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
-import { OfferRdo } from './rdo/index.js';
+import { OfferPreviewRdo, OfferRdo } from './rdo/index.js';
 import { DefaultOfferService } from './default-offer.service.js';
 
 @injectable()
@@ -78,6 +79,7 @@ export class OfferController extends BaseController {
         new ValidateObjectIdMiddleware('offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+        new ValidateUserMiddleware(this.offerService, 'Offer', 'offerId'),
       ],
     });
     this.addRoute({
@@ -88,6 +90,7 @@ export class OfferController extends BaseController {
         new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+        new ValidateUserMiddleware(this.offerService, 'Offer', 'offerId'),
       ],
     });
     this.addRoute({
@@ -159,7 +162,7 @@ export class OfferController extends BaseController {
     const count = getNumberOrUndefined(limit);
     const offers = await this.offerService.find(count);
 
-    this.ok(res, fillDTO(OfferRdo, offers));
+    this.ok(res, fillDTO(OfferPreviewRdo, offers));
   }
 
   public async show(
@@ -187,7 +190,7 @@ export class OfferController extends BaseController {
 
     const premiumOffers = await this.offerService.findPremium(existsCity);
 
-    this.ok(res, fillDTO(OfferRdo, premiumOffers));
+    this.ok(res, fillDTO(OfferPreviewRdo, premiumOffers));
   }
 
   public async showFavorites(
@@ -196,7 +199,7 @@ export class OfferController extends BaseController {
   ): Promise<void> {
     const offers = await this.offerService.findFavorites(id);
 
-    this.ok(res, fillDTO(OfferRdo, offers));
+    this.ok(res, fillDTO(OfferPreviewRdo, offers));
   }
 
   public async updateFavorite(

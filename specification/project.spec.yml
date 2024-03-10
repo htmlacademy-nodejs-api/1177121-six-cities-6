@@ -136,7 +136,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: '#/components/schemas/offerPreview'
 
     post:
       tags:
@@ -292,7 +292,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: '#/components/schemas/offerPreview'
         "404":
           description: Ошибка получения списка предложений. Указанного города не найдено.
 
@@ -318,7 +318,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: '#/components/schemas/offerPreview'
         "401":
           description: Пользователь не авторизован.
           content:
@@ -587,6 +587,54 @@ components:
 
         location:
           $ref: '#/components/schemas/location'
+
+    offerPreview:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 65d516d115a65ef93e3fe828
+
+        title:
+          type: string
+          example: title
+
+        postDate:
+          type: string
+          example: 2024-02-09T23:14:50.000Z
+          format: date-time
+
+        city:
+          $ref: '#/components/schemas/city'
+
+        preview:
+          type: string
+          example: preview.jpg
+
+        isPremium:
+          type: boolean
+
+        isFavorite:
+          type: boolean
+
+        rating:
+          type: number
+          example: 5
+
+        houseType:
+          $ref: "#/components/schemas/houseType"
+
+        price:
+          type: number
+          example: 100
+
+        amenities:
+          $ref: "#/components/schemas/amenities"
+
+        commentCount:
+          type: integer
+          example: 7
 
     createOffer:
       type: object

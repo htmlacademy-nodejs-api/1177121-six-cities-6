@@ -173,7 +173,7 @@ export class DefaultOfferService implements IOfferService {
     return (await this.offerModel.exists({ _id: documentId })) !== null;
   }
 
-  public async isAuthor(
+  public async isUser(
     userId: string,
     documentId: string
   ): Promise<boolean> {
