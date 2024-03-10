@@ -5,7 +5,7 @@ import { ILogger } from '../../libs/logger/index.js';
 import { userConstants } from '../../constants/index.js';
 import { IUserService } from './user-service.interface.js';
 import { UserEntity } from './user.entity.js';
-import { CreateUserDto } from './dto/index.js';
+import { CreateUserDto, UpdateUserDto } from './dto/index.js';
 
 @injectable()
 export class DefaultUserService implements IUserService {
@@ -39,5 +39,11 @@ export class DefaultUserService implements IUserService {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async updateById(userId: string, dto: UpdateUserDto): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel
+      .findByIdAndUpdate(userId, dto, { new: true })
+      .exec();
   }
 }

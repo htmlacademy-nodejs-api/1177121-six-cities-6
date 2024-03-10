@@ -5,6 +5,7 @@ import {
   BaseController,
   EHttpMethod,
   HttpError,
+  PrivateRouteMiddleware,
   UploadFileMiddleware,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
@@ -16,7 +17,7 @@ import { fillDTO } from '../../helpers/index.js';
 import { Env, userConstants } from '../../constants/index.js';
 import { IAuthService } from '../auth/index.js';
 import { TCreateUserRequest, TLoginUserRequest } from './types/index.js';
-import { LoggedUserRdo, UserRdo } from './rdo/index.js';
+import { LoggedUserRdo, UploadUserAvatarRdo, UserRdo } from './rdo/index.js';
 import { CreateUserDto, LoginUserDto } from './dto/index.js';
 import { IUserService } from './user-service.interface.js';
 
@@ -52,12 +53,16 @@ export class UserController extends BaseController {
       path: userConstants.Path.Login,
       method: EHttpMethod.Get,
       handler: this.checkAuthToken,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+      ],
     });
     this.addRoute({
       path: userConstants.Path.UserIdAvatar,
       method: EHttpMethod.Post,
       handler: this.uploadAvatar,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('userId'),
         new UploadFileMiddleware(this.configService.get(Env.UploadDirectory), 'avatar'),
       ],
@@ -82,6 +87,7 @@ export class UserController extends BaseController {
       body,
       this.configService.get(Env.Salt)
     );
+
     this.created(res, fillDTO(UserRdo, result));
   }
 
@@ -124,9 +130,11 @@ export class UserController extends BaseController {
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path,
-    });
+  public async uploadAvatar({ params, file }: Request, res: Response) {
+    const { id } = params;
+    const uploadFile = { avatar: file?.filename };
+
+    await this.userService.updateById(id, uploadFile);
+    this.created(res, fillDTO(UploadUserAvatarRdo, { filepath: uploadFile.avatar }));
   }
 }

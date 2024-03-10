@@ -14,5 +14,5 @@ export interface IOfferService extends IDocumentExists {
   toggleFavorite(userId: string, offerId: string, isFavorite: boolean): Promise<boolean>;
   incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   exists(documentId: string): Promise<boolean>;
-  isAuthor(userId: string, documentId: string): Promise<boolean>;
+  isUser(userId: string, documentId: string): Promise<boolean>;
 }
