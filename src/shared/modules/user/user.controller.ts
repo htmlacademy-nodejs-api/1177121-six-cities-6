@@ -70,10 +70,18 @@ export class UserController extends BaseController {
   }
 
   public async create(
-    { body }: TCreateUserRequest,
+    { body, tokenPayload }: TCreateUserRequest,
     res: Response
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.email);
+
+    if (tokenPayload?.id) {
+      throw new HttpError(
+        StatusCodes.FORBIDDEN,
+        'Access Denied',
+        'User Controller'
+      );
+    }
 
     if (existsUser) {
       throw new HttpError(
